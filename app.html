@@ -20,7 +20,11 @@
       .screen, .tab-screen { display: none; }
       .screen.active, .tab-screen.active { display: block; }
       .card, .panel { background: rgba(83,49,165,.92); border-radius: 30px; padding: 18px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); backdrop-filter: blur(8px); }
-      .login-card { margin-top: 180px; }
+      .login-card { margin-top: 160px; }
+      .auth-brand { margin: 8px 0 20px; }
+      .auth-brand small { display:block; color: var(--lime); letter-spacing:.22em; font-weight:800; font-size:12px; margin-bottom:8px; }
+      .auth-brand h1 { margin:0; font-size:44px; line-height:.92; letter-spacing:-.08em; }
+      .auth-brand p { margin:10px 0 0; color:var(--text-soft); line-height:1.45; }
       .social, .field, .submit, .ghost { border-radius: 999px; padding: 15px 18px; font-weight: 800; text-align: center; border: none; width: 100%; }
       .social { background: #fff; color: #4c2a99; margin-bottom: 10px; }
       .field { background: var(--bg-soft-2); color: rgba(255,255,255,.96); text-align: left; margin-bottom: 10px; font-weight: 500; }
@@ -66,12 +70,14 @@
       .home-caption { margin-top:12px; color: rgba(255,255,255,.88); font-size: 13px; text-align:center; }
       .home-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
       .top-title { font-size: 28px; letter-spacing: -.06em; margin: 0; }
-      .coin-pill { background: rgba(255,255,255,.12); border-radius:999px; padding:10px 14px; font-weight:700; }
+      .top-sub { margin: 6px 0 0; color: var(--text-soft); font-size: 14px; }
+      .coin-pill { background: rgba(255,255,255,.12); border-radius:999px; padding:10px 14px; font-weight:700; box-shadow: inset 0 0 0 1px rgba(255,255,255,.05); }
       .nav { position:absolute; left:16px; right:16px; bottom:16px; background: rgba(82,48,163,.98); border-radius:999px; padding:14px 10px; display:grid; grid-template-columns:repeat(4,1fr); gap:6px; box-shadow:0 18px 32px rgba(19,7,51,.3); }
       .nav button { border:none; background:transparent; color:rgba(255,255,255,.82); display:grid; justify-items:center; gap:6px; font-size:12px; font-weight:700; }
       .nav button span:first-child { font-size:22px; }
       .nav .active { color:#d7ff63; }
       .chat-room { background:rgba(255,255,255,.10); border-radius:28px; padding:18px; display:grid; grid-template-columns:72px 1fr auto; gap:14px; align-items:center; margin-bottom:14px; cursor:pointer; box-shadow: inset 0 0 0 1px rgba(255,255,255,.05); }
+      .list-sub { color: var(--text-soft); font-size: 14px; margin: 6px 0 14px; }
       .room-avatar { width:72px; height:72px; border-radius:50%; background-size:cover; background-position:center; }
       .room-main h3 { margin:0 0 6px; font-size:22px; }
       .room-main p { margin:0; color:rgba(255,255,255,.76); }
@@ -91,6 +97,7 @@
       .inputbar div { background:#5e37b0; border-radius:999px; padding:16px 18px; color:rgba(255,255,255,.7); }
       .inputbar button { background:#6c2fd1; color:#fff; border:none; border-radius:999px; font-size:22px; height:56px; }
       .map-item, .my-item { background: rgba(255,255,255,.12); border-radius:22px; padding:16px; margin-bottom:12px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.05); }
+      .section-intro { margin: 6px 0 14px; color: var(--text-soft); font-size: 14px; line-height: 1.45; }
       .map-item h3, .my-item h3 { margin:0 0 6px; font-size:20px; }
       .btn-row { display:flex; gap:8px; margin-top:10px; }
       .small-btn { border:none; border-radius:999px; padding:12px 14px; font-weight:800; }
@@ -112,6 +119,7 @@
 
           <section class="screen active" id="auth-screen">
             <div class="card login-card">
+              <div class="auth-brand"><small>SINGMATE</small><h1>sing more,<br/>match better</h1><p>카카오, 구글, 휴대폰 인증으로 빠르게 시작하고 노래 취향 기반으로 매칭됩니다.</p></div>
               <button class="social">카카오로 로그인</button>
               <button class="social">Google로 로그인</button>
               <label class="field">휴대폰 번호<input id="login-phone" placeholder="010-0000-0000" /></label>
@@ -190,7 +198,7 @@
 
           <section class="screen" id="app-screen">
             <section class="tab-screen active" id="tab-home">
-              <div class="home-head"><h2 class="top-title">홈</h2><div class="coin-pill" id="coin-pill">싱코인 0</div></div>
+              <div class="home-head"><div><h2 class="top-title">홈</h2><p class="top-sub">오늘의 추천 프로필을 넘겨보세요</p></div><div class="coin-pill" id="coin-pill">싱코인 0</div></div>
               <div class="home-card">
                 <div class="home-overlay">
                   <div class="top-meter"><div class="meter-lines"><span></span><span></span></div><div class="rate-badge" id="match-rate">94%</div></div>
@@ -212,7 +220,7 @@
 
             <section class="tab-screen" id="tab-chat-list">
               <div class="section-shell">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;"><h2 class="top-title">채팅</h2><button class="icon-btn">⌕</button></div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;"><div><h2 class="top-title">채팅</h2><p class="top-sub">매칭된 상대와 바로 약속을 잡아보세요</p></div><button class="icon-btn">⌕</button></div>
                 <div id="chat-list"></div>
               </div>
             </section>
@@ -232,6 +240,7 @@
             <section class="tab-screen" id="tab-nearby">
               <div class="section-shell">
                 <h2 class="top-title">주변 코인노래방</h2>
+                <p class="section-intro">채팅 중 바로 공유할 수 있는 가까운 장소를 빠르게 찾습니다.</p>
                 <div id="nearby-list" style="margin-top:14px;"></div>
               </div>
             </section>
@@ -239,6 +248,7 @@
             <section class="tab-screen" id="tab-mypage">
               <div class="section-shell">
                 <h2 class="top-title">마이페이지</h2>
+                <p class="section-intro">프로필, 미리듣기, 싱코인, 배틀 기록을 한곳에서 관리합니다.</p>
                 <div class="my-item" style="margin-top:14px;"><h3 id="my-name">팀타덕 님</h3><div id="my-meta">가입 대기 중</div></div>
                 <div class="my-item"><h3>15초 미리듣기</h3><div id="my-preview">아직 등록되지 않았습니다.</div><div class="btn-row"><button class="small-btn secondary" id="my-record">다시 녹음</button><button class="small-btn secondary" id="my-upload">파일 업로드</button></div></div>
                 <div class="my-item"><h3>싱코인</h3><div id="my-coins">0개</div></div>
