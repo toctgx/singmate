@@ -37,6 +37,10 @@
         font-size: 18px;
         color: rgba(255,255,255,0.78);
       }
+      .cta-row { display:flex; gap:12px; flex-wrap:wrap; margin-top:18px; }
+      .cta-row a { display:inline-flex; align-items:center; justify-content:center; min-height:52px; padding:0 20px; border-radius:999px; text-decoration:none; font-weight:800; }
+      .cta-row a.primary { background:#d7ff63; color:#3b1d82; }
+      .cta-row a.secondary { background:rgba(255,255,255,0.12); color:#fff; }
       .screens {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
@@ -48,7 +52,7 @@
         overflow: hidden;
         min-height: 860px;
         border-radius: 38px;
-        background: #4c2a99;
+        background: linear-gradient(180deg, #4d289e 0%, #45208f 100%);
         padding: 22px 18px 110px;
         box-shadow: 0 28px 50px rgba(10, 4, 28, 0.38);
       }
@@ -140,8 +144,9 @@
       .mate { background: #ffffff; color: #4c2a99; min-height: 54px; }
       .battle { background: #ff4e7a; color: #fff; min-height: 54px; }
       .section-title { font-size: 30px; letter-spacing: -0.06em; margin: 18px 0 10px; }
-      .chat-header, .map-card, .mypage-card { background: rgba(255,255,255,0.12); border-radius: 26px; padding: 18px; }
+      .chat-header, .map-card, .mypage-card { background: rgba(255,255,255,0.12); border-radius: 30px; padding: 18px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06); }
       .chat-list-shell { padding-top: 8px; }
+      .soft-panel { background: rgba(255,255,255,0.08); border-radius: 26px; padding: 16px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.05); }
       .chat-list-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
       .chat-list-top h2 { margin: 0; font-size: 34px; letter-spacing: -0.06em; }
       .icon-round { width: 52px; height: 52px; border-radius: 50%; background: rgba(255,255,255,0.08); display: grid; place-items: center; font-size: 22px; font-weight: 800; }
@@ -159,14 +164,14 @@
       .badge-col { display: grid; justify-items: end; gap: 10px; }
       .badge { min-width: 34px; height: 30px; padding: 0 10px; border-radius: 999px; background: #d7ff63; color: #3b1d82; display: grid; place-items: center; font-weight: 800; }
       .dot { width: 10px; height: 10px; border-radius: 50%; background: #d7ff63; }
-      .chat-bottom-nav { margin: 22px auto 0; width: 92%; background: #ba8dff; border-radius: 999px; padding: 10px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-      .chat-bottom-nav button { border: none; background: transparent; min-height: 70px; border-radius: 999px; color: #432081; font-size: 28px; }
-      .chat-bottom-nav .active { background: #4b2497; color: #fff; }
+      .chat-bottom-nav { margin: 22px auto 0; width: 92%; background: rgba(255,255,255,0.14); border-radius: 999px; padding: 10px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+      .chat-bottom-nav button { border: none; background: transparent; min-height: 70px; border-radius: 999px; color: rgba(255,255,255,0.78); font-size: 28px; }
+      .chat-bottom-nav .active { background: #d7ff63; color: #432081; }
       .battle-card { background: #5e37b0; border-radius: 28px; padding: 18px; margin-top: 18px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
       .battle-options { display: grid; gap: 10px; margin-top: 12px; }
       .battle-btn { min-height: 50px; background: rgba(255,255,255,0.12); color: #fff; }
       .battle-btn.primary { background: #d7ff63; color: #4c2a99; }
-      .map-box { height: 210px; border-radius: 28px; background: linear-gradient(135deg, #d7ff63 0%, #b792ff 100%); margin-bottom: 14px; position: relative; overflow: hidden; }
+      .map-box { height: 210px; border-radius: 28px; background: linear-gradient(135deg, #7445d6 0%, #b792ff 100%); margin-bottom: 14px; position: relative; overflow: hidden; }
       .pin { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #ff4e7a; box-shadow: 0 0 0 8px rgba(255,255,255,0.22); }
       .p1 { top: 32%; left: 30%; } .p2 { top: 48%; left: 60%; } .p3 { top: 62%; left: 42%; }
       .location-item, .mypage-item { background: rgba(255,255,255,0.12); border-radius: 22px; padding: 16px; margin-top: 12px; }
@@ -176,7 +181,7 @@
       .list-btn.share { background: #d7ff63; }
       .profile-top { text-align: center; margin-bottom: 16px; }
       .avatar { width: 92px; height: 92px; border-radius: 50%; background: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80') center/cover; margin: 0 auto 12px; box-shadow: 0 10px 24px rgba(0,0,0,0.28); }
-      .coin-box { background: #d7ff63; color: #4c2a99; border-radius: 24px; padding: 16px; margin-top: 12px; }
+      .coin-box { background: #d7ff63; color: #4c2a99; border-radius: 24px; padding: 16px; margin-top: 12px; box-shadow: 0 8px 20px rgba(215,255,99,0.18); }
       .coin-btn { background: #4c2a99; color: #fff; padding: 12px 14px; margin-top: 10px; }
       .nav {
         position: absolute; left: 16px; right: 16px; bottom: 16px; background: rgba(82, 48, 163, 0.98); border-radius: 999px; padding: 14px 10px;
@@ -204,7 +209,11 @@
       <section class="hero">
         <small>SINGMATE UI SYSTEM</small>
         <h1>dateasy-inspired<br/>singmate screens</h1>
-        <p>보라 중심 배경, 라임 포인트, 굵은 타이포, 대형 도형 그래픽 무드를 전체 핵심 화면에 일괄 적용한 프리뷰입니다.</p>
+        <p>현재까지 정리된 화면 시안과 실제 클릭형 프론트 데모를 함께 볼 수 있는 프리뷰입니다.</p>
+        <div class="cta-row">
+          <a class="primary" href="./app.html">실행형 데모 열기</a>
+          <a class="secondary" href="https://github.com/toctgx/singmate" target="_blank" rel="noreferrer">GitHub 저장소</a>
+        </div>
       </section>
 
       <section class="screens">
@@ -274,7 +283,7 @@
         <article class="phone short">
           <div class="content">
             <div class="status"><span>9:41</span><span>●●●</span></div>
-            <div class="chat-list-shell">
+            <div class="chat-list-shell soft-panel">
               <div class="chat-list-top">
                 <h2>Chat</h2>
                 <div class="icon-round">⌕</div>
@@ -336,7 +345,7 @@
           <div class="shape circle" style="bottom:120px; right:-18px; width:130px; height:130px;"></div>
           <div class="content">
             <div class="status"><span>9:41</span><span>●●●</span></div>
-            <div class="map-card">
+            <div class="map-card soft-panel">
               <div class="map-box"><div class="pin p1"></div><div class="pin p2"></div><div class="pin p3"></div></div>
               <div class="location-item">
                 <h3>수노래방 성수점</h3>
@@ -359,7 +368,7 @@
           <div class="shape squiggle" style="bottom:120px; left:-8px; transform:rotate(-14deg);"></div>
           <div class="content">
             <div class="status"><span>9:41</span><span>●●●</span></div>
-            <div class="mypage-card">
+            <div class="mypage-card soft-panel">
               <div class="profile-top"><div class="avatar"></div><h3 style="font-size:28px; margin:0;">수진, 27</h3><div class="meta" style="color:rgba(255,255,255,0.9);">성수 · ENFP · 발라드 / OST</div></div>
               <div class="mypage-item"><h3>15초 미리듣기</h3><div class="preview" style="margin:10px 0 0;"><div><strong>현재 등록된 음성</strong><span>재생 · 다시 녹음 · 파일 재업로드</span></div><button class="play">▶</button></div></div>
               <div class="coin-box"><strong>싱코인 28개</strong><div style="margin-top:6px; font-size:14px;">오늘 미리듣기 보상 2/3 지급 완료</div><button class="coin-btn">충전하기 / 사용내역</button></div>
