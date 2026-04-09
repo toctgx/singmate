@@ -3,27 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Singmate Prototype</title>
+    <title>Singmate Interactive Demo</title>
     <style>
       @import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&display=swap');
       * { box-sizing: border-box; }
       body { margin: 0; font-family: 'Cabinet Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #2f176f; color: #fff; }
       .app { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
-      .phone { width: 100%; max-width: 430px; min-height: 860px; background: #4c2a99; border-radius: 38px; padding: 22px 18px 110px; position: relative; overflow: hidden; box-shadow: 0 28px 50px rgba(10,4,28,.38); }
+      .phone { width: 100%; max-width: 430px; min-height: 880px; background: #4c2a99; border-radius: 38px; padding: 22px 18px 110px; position: relative; overflow: hidden; box-shadow: 0 28px 50px rgba(10,4,28,.38); }
       .shape { position: absolute; z-index: 0; }
       .circle { border-radius: 50%; background: #d7ff63; }
       .star { width: 110px; height: 110px; background: #ff4e7a; clip-path: polygon(50% 0%, 62% 35%, 100% 50%, 62% 65%, 50% 100%, 38% 65%, 0% 50%, 38% 35%); }
       .blob { width: 124px; height: 84px; background: #b792ff; border-radius: 50px; }
       .content { position: relative; z-index: 1; }
       .status { display: flex; justify-content: space-between; font-weight: 800; font-size: 18px; margin-bottom: 18px; }
-      .screen { display: none; }
-      .screen.active { display: block; }
-      .card { background: rgba(83,49,165,.92); border-radius: 34px; padding: 18px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); backdrop-filter: blur(8px); }
+      .screen, .tab-screen { display: none; }
+      .screen.active, .tab-screen.active { display: block; }
+      .card, .panel { background: rgba(83,49,165,.92); border-radius: 34px; padding: 18px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); backdrop-filter: blur(8px); }
       .login-card { margin-top: 180px; }
       .social, .field, .submit, .ghost { border-radius: 999px; padding: 15px 18px; font-weight: 800; text-align: center; border: none; width: 100%; }
       .social { background: #fff; color: #4c2a99; margin-bottom: 10px; }
       .field { background: rgba(255,255,255,.12); color: rgba(255,255,255,.96); text-align: left; margin-bottom: 10px; font-weight: 500; }
-      .field input, .field select { width: 100%; margin-top: 6px; background: transparent; border: none; outline: none; color: #fff; font-size: 16px; font-family: inherit; }
+      .field input, .field select, .field textarea { width: 100%; margin-top: 6px; background: transparent; border: none; outline: none; color: #fff; font-size: 16px; font-family: inherit; resize: none; }
       .submit { background: #ff4e7a; color: #fff; margin-top: 10px; }
       .ghost { background: rgba(255,255,255,.12); color: #fff; margin-top: 10px; }
       .helper { margin-top: 14px; text-align: center; color: rgba(255,255,255,.9); font-size: 14px; }
@@ -41,7 +41,10 @@
       .permission button { border: none; border-radius: 18px; padding: 14px; font: inherit; font-weight: 700; }
       .allow { background: #d7ff63; color: #432081; }
       .deny { background: rgba(255,255,255,.12); color: #fff; }
-      .home-card { min-height: 650px; background: linear-gradient(180deg, rgba(34,18,76,.04) 0%, rgba(34,18,76,.08) 100%), url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80') center/cover; border-radius: 34px; overflow: hidden; padding: 18px; position: relative; box-shadow: 0 24px 40px rgba(0,0,0,.22); margin-top: 130px; }
+      .top-link { display:flex; justify-content:space-between; align-items:center; margin: 4px 0 18px; }
+      .top-link button, .icon-btn { border:none; background: rgba(255,255,255,.1); color:#fff; width:44px; height:44px; border-radius:50%; font-size:20px; }
+      .result { margin-top: 14px; color: #d7ff63; font-weight: 700; min-height: 20px; }
+      .home-card { min-height: 650px; background: linear-gradient(180deg, rgba(34,18,76,.04) 0%, rgba(34,18,76,.08) 100%), url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80') center/cover; border-radius: 34px; overflow: hidden; padding: 18px; position: relative; box-shadow: 0 24px 40px rgba(0,0,0,.22); margin-top: 78px; }
       .home-card::after { content:''; position:absolute; inset:0; background: linear-gradient(180deg, rgba(35,18,79,.02) 0%, rgba(35,18,79,.14) 35%, rgba(35,18,79,.85) 100%); }
       .home-overlay { position: relative; z-index: 1; height: 100%; display:flex; flex-direction:column; }
       .top-meter { display:flex; justify-content:space-between; gap:12px; align-items:center; }
@@ -60,9 +63,39 @@
       .round-btn.like { background:#ff4e7a; color:#fff; }
       .round-btn.play-main { width:96px; height:96px; justify-self:center; background:#d7ff63; color:#432081; box-shadow:0 0 0 8px rgba(215,255,99,.18); }
       .home-caption { margin-top:12px; color: rgba(255,255,255,.88); font-size: 13px; text-align:center; }
-      .top-link { display:flex; justify-content:space-between; align-items:center; margin: 4px 0 18px; }
-      .top-link button { border:none; background: rgba(255,255,255,.1); color:#fff; width:44px; height:44px; border-radius:50%; font-size:20px; }
-      .result { margin-top: 14px; color: #d7ff63; font-weight: 700; min-height: 20px; }
+      .home-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+      .coin-pill { background: rgba(255,255,255,.12); border-radius:999px; padding:10px 14px; font-weight:700; }
+      .nav { position:absolute; left:16px; right:16px; bottom:16px; background: rgba(82,48,163,.98); border-radius:999px; padding:14px 10px; display:grid; grid-template-columns:repeat(4,1fr); gap:6px; box-shadow:0 18px 32px rgba(19,7,51,.3); }
+      .nav button { border:none; background:transparent; color:rgba(255,255,255,.82); display:grid; justify-items:center; gap:6px; font-size:12px; font-weight:700; }
+      .nav button span:first-child { font-size:22px; }
+      .nav .active { color:#d7ff63; }
+      .chat-room { background:#6430bf; border-radius:28px; padding:18px; display:grid; grid-template-columns:72px 1fr auto; gap:14px; align-items:center; margin-bottom:14px; cursor:pointer; }
+      .room-avatar { width:72px; height:72px; border-radius:50%; background-size:cover; background-position:center; }
+      .room-main h3 { margin:0 0 6px; font-size:22px; }
+      .room-main p { margin:0; color:rgba(255,255,255,.76); }
+      .badge { min-width:34px; height:30px; padding:0 10px; border-radius:999px; background:#d7ff63; color:#3b1d82; display:grid; place-items:center; font-weight:800; }
+      .dot { width:10px; height:10px; border-radius:50%; background:#d7ff63; }
+      .chat-shell { background: rgba(62,28,133,.98); border-radius:30px; padding:16px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
+      .chat-top { display:grid; grid-template-columns:52px 1fr 52px; gap:12px; align-items:center; margin-bottom:20px; }
+      .person { display:flex; align-items:center; gap:12px; }
+      .avatar-sm { width:54px; height:54px; border-radius:50%; background-size:cover; background-position:center; }
+      .online { color:#d7ff63; font-size:14px; margin-top:4px; }
+      .bubble-wrap { display:grid; gap:10px; margin:10px 0 18px; }
+      .bubble { max-width:88%; padding:16px 18px; border-radius:24px; font-size:14px; line-height:1.56; font-weight:500; }
+      .bubble.me { margin-left:auto; background:#d7ff63; color:#2f176f; border-top-right-radius:8px; }
+      .bubble.you { background:#6c2fd1; color:#fff; border-top-left-radius:8px; }
+      .inputbar { display:grid; grid-template-columns:1fr 56px; gap:10px; align-items:center; }
+      .inputbar div { background:#5e37b0; border-radius:999px; padding:16px 18px; color:rgba(255,255,255,.7); }
+      .inputbar button { background:#6c2fd1; color:#fff; border:none; border-radius:999px; font-size:22px; height:56px; }
+      .map-item, .my-item { background: rgba(255,255,255,.12); border-radius:22px; padding:16px; margin-bottom:12px; }
+      .map-item h3, .my-item h3 { margin:0 0 6px; font-size:20px; }
+      .btn-row { display:flex; gap:8px; margin-top:10px; }
+      .small-btn { border:none; border-radius:999px; padding:12px 14px; font-weight:800; }
+      .small-btn.primary { background:#d7ff63; color:#432081; }
+      .small-btn.secondary { background:#fff; color:#432081; }
+      .battle-box { background:#d7ff63; color:#432081; border-radius:24px; padding:16px; margin-top:12px; }
+      .toast { position: absolute; left: 50%; bottom: 102px; transform: translateX(-50%); background: rgba(14,8,35,.92); color: #fff; padding: 12px 16px; border-radius: 999px; font-size: 14px; display:none; z-index: 3; }
+      .toast.show { display:block; }
     </style>
   </head>
   <body>
@@ -74,7 +107,7 @@
         <div class="content">
           <div class="status"><span>9:41</span><span>●●●</span></div>
 
-          <section class="screen active" id="login-screen">
+          <section class="screen active" id="auth-screen">
             <div class="card login-card">
               <button class="social">카카오로 로그인</button>
               <button class="social">Google로 로그인</button>
@@ -86,115 +119,292 @@
             </div>
           </section>
 
-          <section class="screen" id="signup-step-1">
-            <div class="top-link"><button class="back" data-back="login-screen">←</button><span></span></div>
-            <div class="card">
-              <div class="steps"><span class="step on"></span><span class="step"></span><span class="step"></span><span class="step"></span><span class="step"></span></div>
-              <h2 class="section-title">기본 인증</h2>
-              <p class="section-desc">회원가입 첫 단계입니다. 휴대폰 인증으로 시작합니다.</p>
-              <label class="field">휴대폰 번호<input id="signup-phone" placeholder="010-0000-0000" /></label>
-              <label class="field">인증번호<input id="signup-code" placeholder="123456" /></label>
-              <button class="submit" data-next="signup-step-2">다음</button>
-            </div>
-          </section>
-
-          <section class="screen" id="signup-step-2">
-            <div class="top-link"><button class="back" data-back="signup-step-1">←</button><span></span></div>
-            <div class="card">
-              <div class="steps"><span class="step on"></span><span class="step on"></span><span class="step"></span><span class="step"></span><span class="step"></span></div>
-              <h2 class="section-title">프로필 기본정보</h2>
-              <p class="section-desc">이름, 생년월일, 성별을 입력합니다.</p>
-              <label class="field">이름<input id="signup-name" placeholder="이름" /></label>
-              <label class="field">생년월일<input id="signup-birth" placeholder="1999-01-01" /></label>
-              <label class="field">성별<select id="signup-gender"><option>선택</option><option>여성</option><option>남성</option></select></label>
-              <button class="submit" data-next="signup-step-3">다음</button>
-            </div>
-          </section>
-
-          <section class="screen" id="signup-step-3">
-            <div class="top-link"><button class="back" data-back="signup-step-2">←</button><span></span></div>
-            <div class="card">
-              <div class="steps"><span class="step on"></span><span class="step on"></span><span class="step on"></span><span class="step"></span><span class="step"></span></div>
-              <h2 class="section-title">취향 선택</h2>
-              <p class="section-desc">좋아하는 장르와 관심사를 선택합니다.</p>
-              <div class="chip-group" id="genre-group">
-                <button class="chip">발라드</button><button class="chip">OST</button><button class="chip">K-POP</button><button class="chip">R&B</button><button class="chip">듀엣</button><button class="chip">힙합</button>
+          <section class="screen" id="signup-screen">
+            <section class="tab-screen active" id="signup-step-1">
+              <div class="top-link"><button data-back-auth>←</button><span></span></div>
+              <div class="card">
+                <div class="steps"><span class="step on"></span><span class="step"></span><span class="step"></span><span class="step"></span><span class="step"></span></div>
+                <h2 class="section-title">기본 인증</h2>
+                <p class="section-desc">휴대폰 인증으로 회원가입을 시작합니다.</p>
+                <label class="field">휴대폰 번호<input id="signup-phone" placeholder="010-0000-0000" /></label>
+                <label class="field">인증번호<input id="signup-code" placeholder="123456" /></label>
+                <button class="submit" data-signup-next="signup-step-2">다음</button>
               </div>
-              <button class="submit" data-next="signup-step-4">다음</button>
-            </div>
-          </section>
-
-          <section class="screen" id="signup-step-4">
-            <div class="top-link"><button class="back" data-back="signup-step-3">←</button><span></span></div>
-            <div class="card">
-              <div class="steps"><span class="step on"></span><span class="step on"></span><span class="step on"></span><span class="step on"></span><span class="step"></span></div>
-              <h2 class="section-title">권한 및 미리듣기</h2>
-              <p class="section-desc">위치 권한은 여기서 받습니다. 이후 15초 미리듣기를 등록합니다.</p>
-              <div class="permission">
-                <button class="allow" id="allow-location">위치 권한 허용</button>
-                <button class="deny">나중에 하기</button>
+            </section>
+            <section class="tab-screen" id="signup-step-2">
+              <div class="top-link"><button data-signup-back="signup-step-1">←</button><span></span></div>
+              <div class="card">
+                <div class="steps"><span class="step on"></span><span class="step on"></span><span class="step"></span><span class="step"></span><span class="step"></span></div>
+                <h2 class="section-title">프로필 기본정보</h2>
+                <label class="field">이름<input id="signup-name" placeholder="이름" /></label>
+                <label class="field">생년월일<input id="signup-birth" placeholder="1999-01-01" /></label>
+                <label class="field">성별<select id="signup-gender"><option value="">선택</option><option>여성</option><option>남성</option></select></label>
+                <button class="submit" data-signup-next="signup-step-3">다음</button>
               </div>
-              <div class="preview-box">
-                <strong>15초 미리듣기 업로드</strong>
-                <p style="margin:8px 0 0; color:rgba(255,255,255,.78);">녹음 또는 파일 업로드 중 하나를 선택합니다.</p>
-                <div style="display:grid; gap:10px; margin-top:12px;">
-                  <button class="ghost">직접 녹음</button>
-                  <button class="ghost">파일 업로드</button>
+            </section>
+            <section class="tab-screen" id="signup-step-3">
+              <div class="top-link"><button data-signup-back="signup-step-2">←</button><span></span></div>
+              <div class="card">
+                <div class="steps"><span class="step on"></span><span class="step on"></span><span class="step on"></span><span class="step"></span><span class="step"></span></div>
+                <h2 class="section-title">취향 선택</h2>
+                <p class="section-desc">최소 2개를 선택해주세요.</p>
+                <div class="chip-group" id="genre-group">
+                  <button class="chip">발라드</button><button class="chip">OST</button><button class="chip">K-POP</button><button class="chip">R&B</button><button class="chip">듀엣</button><button class="chip">힙합</button>
                 </div>
+                <button class="submit" data-signup-next="signup-step-4">다음</button>
               </div>
-              <button class="submit" data-next="signup-step-5">다음</button>
-            </div>
-          </section>
-
-          <section class="screen" id="signup-step-5">
-            <div class="top-link"><button class="back" data-back="signup-step-4">←</button><span></span></div>
-            <div class="card">
-              <div class="steps"><span class="step on"></span><span class="step on"></span><span class="step on"></span><span class="step on"></span><span class="step on"></span></div>
-              <h2 class="section-title">가입 완료</h2>
-              <p class="section-desc">회원가입이 끝났습니다. 이제 실제 홈 카드 화면으로 들어갑니다.</p>
-              <button class="submit" id="enter-home">홈으로 이동</button>
-            </div>
-          </section>
-
-          <section class="screen" id="home-screen">
-            <div class="home-card">
-              <div class="home-overlay">
-                <div class="top-meter"><div class="meter-lines"><span></span><span></span></div><div class="rate-badge">94%</div></div>
-                <div class="home-spacer"></div>
-                <div class="home-info">
-                  <h2>수진, 27</h2>
-                  <div class="distance">📍 성수 · 1.2km away</div>
-                  <div class="home-meta"><span>ENFP</span><span>OST</span><span>감성 발라드</span></div>
-                  <div class="home-actions">
-                    <button class="round-btn pass">✕</button>
-                    <button class="round-btn play-main">▶</button>
-                    <button class="round-btn like">♡</button>
+            </section>
+            <section class="tab-screen" id="signup-step-4">
+              <div class="top-link"><button data-signup-back="signup-step-3">←</button><span></span></div>
+              <div class="card">
+                <div class="steps"><span class="step on"></span><span class="step on"></span><span class="step on"></span><span class="step on"></span><span class="step"></span></div>
+                <h2 class="section-title">권한 및 미리듣기</h2>
+                <div class="permission">
+                  <button class="allow" id="allow-location">위치 권한 허용</button>
+                  <button class="deny" id="skip-location">나중에 하기</button>
+                </div>
+                <div class="preview-box">
+                  <strong>15초 미리듣기</strong>
+                  <div class="btn-row">
+                    <button class="small-btn secondary" id="record-btn">직접 녹음</button>
+                    <button class="small-btn secondary" id="upload-btn">파일 업로드</button>
                   </div>
-                  <div class="home-caption">이 화면에서 옆으로 넘기며 다음 프로필을 볼 수 있습니다.</div>
+                  <div class="result" id="preview-result"></div>
+                </div>
+                <button class="submit" data-signup-next="signup-step-5">다음</button>
+              </div>
+            </section>
+            <section class="tab-screen" id="signup-step-5">
+              <div class="top-link"><button data-signup-back="signup-step-4">←</button><span></span></div>
+              <div class="card">
+                <div class="steps"><span class="step on"></span><span class="step on"></span><span class="step on"></span><span class="step on"></span><span class="step on"></span></div>
+                <h2 class="section-title">가입 완료</h2>
+                <p class="section-desc" id="signup-summary"></p>
+                <button class="submit" id="enter-app">앱 시작하기</button>
+              </div>
+            </section>
+          </section>
+
+          <section class="screen" id="app-screen">
+            <section class="tab-screen active" id="tab-home">
+              <div class="home-head"><button class="icon-btn" id="home-refresh">↺</button><div class="coin-pill" id="coin-pill">싱코인 0</div></div>
+              <div class="home-card">
+                <div class="home-overlay">
+                  <div class="top-meter"><div class="meter-lines"><span></span><span></span></div><div class="rate-badge" id="match-rate">94%</div></div>
+                  <div class="home-spacer"></div>
+                  <div class="home-info">
+                    <h2 id="profile-name">수진, 27</h2>
+                    <div class="distance" id="profile-distance">📍 성수 · 1.2km away</div>
+                    <div class="home-meta" id="profile-tags"></div>
+                    <div class="home-actions">
+                      <button class="round-btn pass" id="pass-btn">✕</button>
+                      <button class="round-btn play-main" id="play-btn">▶</button>
+                      <button class="round-btn like" id="like-btn">♡</button>
+                    </div>
+                    <div class="home-caption" id="home-caption">미리듣기 완료 시 하루 최대 3회까지 싱코인 1개 지급</div>
+                  </div>
                 </div>
               </div>
-            </div>
+            </section>
+
+            <section class="tab-screen" id="tab-chat-list">
+              <div class="panel">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;"><h2 class="section-title" style="margin:0;">Chat</h2><button class="icon-btn">⌕</button></div>
+                <div id="chat-list"></div>
+              </div>
+            </section>
+
+            <section class="tab-screen" id="tab-chat-room">
+              <div class="chat-shell">
+                <div class="chat-top">
+                  <button class="icon-btn" id="back-chat-list">←</button>
+                  <div class="person"><div class="avatar-sm" id="room-avatar"></div><div><h3 id="room-name" style="margin:0;"></h3><div class="online">Online</div></div></div>
+                  <button class="icon-btn">⋯</button>
+                </div>
+                <div id="message-list"></div>
+                <div class="inputbar"><div id="message-input" contenteditable="true">메시지를 입력하세요...</div><button id="send-message">➤</button></div>
+              </div>
+            </section>
+
+            <section class="tab-screen" id="tab-nearby">
+              <div class="panel">
+                <h2 class="section-title">주변 코인노래방</h2>
+                <div id="nearby-list"></div>
+              </div>
+            </section>
+
+            <section class="tab-screen" id="tab-mypage">
+              <div class="panel">
+                <h2 class="section-title">마이페이지</h2>
+                <div class="my-item"><h3 id="my-name">팀타덕 님</h3><div id="my-meta">가입 대기 중</div></div>
+                <div class="my-item"><h3>15초 미리듣기</h3><div id="my-preview">아직 등록되지 않았습니다.</div><div class="btn-row"><button class="small-btn secondary" id="my-record">다시 녹음</button><button class="small-btn secondary" id="my-upload">파일 업로드</button></div></div>
+                <div class="my-item"><h3>싱코인</h3><div id="my-coins">0개</div></div>
+                <div class="my-item"><h3>배틀 기록</h3><div id="battle-record">0전 0승</div><div class="btn-row"><button class="small-btn primary" id="battle-win">승리 +1</button><button class="small-btn secondary" id="battle-total">배틀 +1</button></div></div>
+              </div>
+            </section>
+
+            <nav class="nav">
+              <button class="active" data-tab="tab-home"><span>⌂</span><span>홈</span></button>
+              <button data-tab="tab-chat-list"><span>💬</span><span>채팅</span></button>
+              <button data-tab="tab-nearby"><span>📍</span><span>코노</span></button>
+              <button data-tab="tab-mypage"><span>👤</span><span>마이</span></button>
+            </nav>
           </section>
         </div>
+        <div class="toast" id="toast"></div>
       </div>
     </div>
 
     <script>
-      const screens = document.querySelectorAll('.screen');
-      const show = (id) => {
-        screens.forEach(s => s.classList.toggle('active', s.id === id));
+      const state = {
+        signup: { phone:'', code:'', name:'', birth:'', gender:'', genres:[], location:false, preview:'미등록' },
+        coins: 0,
+        listenRewardsToday: 0,
+        currentProfile: 0,
+        currentChat: 0,
+        battle: { total: 0, win: 0 },
+        profiles: [
+          { name:'수진', age:27, distance:'성수 · 1.2km away', rate:'94%', tags:['ENFP','OST','감성 발라드'] },
+          { name:'민지', age:24, distance:'홍대 · 2.1km away', rate:'88%', tags:['ISFP','R&B','듀엣'] },
+          { name:'유나', age:26, distance:'건대 · 900m away', rate:'91%', tags:['ENTP','K-POP','댄스곡'] }
+        ],
+        chats: [
+          { name:'Lucy, 22', avatar:"https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80", preview:'Say hi!', unread:3, messages:[{me:false,text:'안녕하세요! 오늘 저녁 시간 괜찮으세요?'},{me:true,text:'네 가능해요. 성수 쪽 코노 어떠세요?'}] },
+          { name:'Emily, 27', avatar:"https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80", preview:'Hey, how are you?', unread:0, messages:[{me:false,text:'이번 주말에 싱배틀 가능해요?'}] }
+        ],
+        places: [
+          { name:'수노래방 성수점', detail:'320m · 도보 5분' },
+          { name:'코인싱 성수역점', detail:'540m · 도보 8분' }
+        ]
       };
-      document.getElementById('go-signup').onclick = () => show('signup-step-1');
-      document.querySelectorAll('[data-next]').forEach(btn => btn.onclick = () => show(btn.dataset.next));
-      document.querySelectorAll('[data-back]').forEach(btn => btn.onclick = () => show(btn.dataset.back));
-      document.getElementById('enter-home').onclick = () => show('home-screen');
+
+      const screens = document.querySelectorAll('.screen');
+      const tabScreens = document.querySelectorAll('#app-screen .tab-screen');
+      const signupTabs = document.querySelectorAll('#signup-screen .tab-screen');
+      const toast = document.getElementById('toast');
+      const showToast = (msg) => { toast.textContent = msg; toast.classList.add('show'); clearTimeout(window.toastTimer); window.toastTimer = setTimeout(() => toast.classList.remove('show'), 1800); };
+      const showScreen = (id) => screens.forEach(s => s.classList.toggle('active', s.id === id));
+      const showSignupStep = (id) => signupTabs.forEach(s => s.classList.toggle('active', s.id === id));
+      const showTab = (id) => {
+        tabScreens.forEach(s => s.classList.toggle('active', s.id === id));
+        document.querySelectorAll('.nav button').forEach(b => b.classList.toggle('active', b.dataset.tab === id));
+      };
+
+      document.getElementById('go-signup').onclick = () => { showScreen('signup-screen'); showSignupStep('signup-step-1'); };
+      document.querySelector('[data-back-auth]').onclick = () => showScreen('auth-screen');
+      document.querySelectorAll('[data-signup-next]').forEach(btn => btn.onclick = () => showSignupStep(btn.dataset.signupNext));
+      document.querySelectorAll('[data-signup-back]').forEach(btn => btn.onclick = () => showSignupStep(btn.dataset.signupBack));
+
       document.getElementById('login-btn').onclick = () => {
         const phone = document.getElementById('login-phone').value.trim();
         const code = document.getElementById('login-code').value.trim();
-        document.getElementById('login-result').textContent = phone && code ? '로그인 테스트 통과. 실제 연동 전 임시 프로토타입입니다.' : '휴대폰 번호와 인증번호를 입력해주세요.';
+        document.getElementById('login-result').textContent = phone && code ? '로그인 테스트 완료. 데모 앱으로 진입합니다.' : '휴대폰 번호와 인증번호를 입력해주세요.';
+        if (phone && code) setTimeout(() => { showScreen('app-screen'); showTab('tab-home'); }, 500);
       };
-      document.querySelectorAll('.chip').forEach(chip => chip.onclick = () => chip.classList.toggle('selected'));
-      document.getElementById('allow-location').onclick = (e) => { e.target.textContent = '위치 권한 허용됨'; };
+
+      document.getElementById('allow-location').onclick = () => { state.signup.location = true; showToast('위치 권한 허용됨'); };
+      document.getElementById('skip-location').onclick = () => { state.signup.location = false; showToast('위치 권한은 나중에 설정'); };
+      document.getElementById('record-btn').onclick = () => { state.signup.preview = '직접 녹음 완료'; document.getElementById('preview-result').textContent = '직접 녹음이 등록되었습니다.'; };
+      document.getElementById('upload-btn').onclick = () => { state.signup.preview = '파일 업로드 완료'; document.getElementById('preview-result').textContent = '업로드 파일이 등록되었습니다.'; };
+      document.querySelectorAll('#genre-group .chip').forEach(chip => chip.onclick = () => { chip.classList.toggle('selected'); });
+
+      document.getElementById('enter-app').onclick = () => {
+        state.signup.phone = document.getElementById('signup-phone').value.trim();
+        state.signup.code = document.getElementById('signup-code').value.trim();
+        state.signup.name = document.getElementById('signup-name').value.trim() || '새 사용자';
+        state.signup.birth = document.getElementById('signup-birth').value.trim();
+        state.signup.gender = document.getElementById('signup-gender').value;
+        state.signup.genres = [...document.querySelectorAll('#genre-group .chip.selected')].map(el => el.textContent);
+        document.getElementById('signup-summary').textContent = `${state.signup.name}님의 가입이 완료되었습니다. 취향 ${state.signup.genres.join(', ') || '미선택'}, 미리듣기 ${state.signup.preview}`;
+        renderMyPage();
+        showScreen('app-screen');
+        showTab('tab-home');
+        showToast('회원가입 완료');
+      };
+
+      const renderHome = () => {
+        const p = state.profiles[state.currentProfile % state.profiles.length];
+        document.getElementById('profile-name').textContent = `${p.name}, ${p.age}`;
+        document.getElementById('profile-distance').textContent = `📍 ${p.distance}`;
+        document.getElementById('match-rate').textContent = p.rate;
+        document.getElementById('profile-tags').innerHTML = p.tags.map(t => `<span>${t}</span>`).join('');
+        document.getElementById('coin-pill').textContent = `싱코인 ${state.coins}`;
+      };
+      const nextProfile = () => { state.currentProfile = (state.currentProfile + 1) % state.profiles.length; renderHome(); };
+      document.getElementById('pass-btn').onclick = () => { nextProfile(); showToast('다음 프로필로 이동'); };
+      document.getElementById('like-btn').onclick = () => { nextProfile(); showToast('싱메이트 신청 완료'); };
+      document.getElementById('home-refresh').onclick = () => { nextProfile(); showToast('프로필 새로고침'); };
+      document.getElementById('play-btn').onclick = () => {
+        if (state.listenRewardsToday < 3) { state.listenRewardsToday += 1; state.coins += 1; showToast(`15초 미리듣기 완료, 싱코인 +1 (${state.listenRewardsToday}/3)`); }
+        else showToast('오늘 지급 가능한 싱코인은 모두 받았습니다.');
+        renderHome(); renderMyPage();
+      };
+
+      const renderChatList = () => {
+        const el = document.getElementById('chat-list');
+        el.innerHTML = state.chats.map((chat, idx) => `
+          <div class="chat-room" data-chat="${idx}">
+            <div class="room-avatar" style="background-image:url('${chat.avatar}')"></div>
+            <div class="room-main"><h3>${chat.name}</h3><p>${chat.preview}</p></div>
+            <div>${chat.unread ? `<div class='badge'>${chat.unread}</div>` : `<div class='dot'></div>`}</div>
+          </div>
+        `).join('');
+        el.querySelectorAll('[data-chat]').forEach(node => node.onclick = () => { state.currentChat = Number(node.dataset.chat); renderChatRoom(); showTab('tab-chat-room'); });
+      };
+      const renderChatRoom = () => {
+        const chat = state.chats[state.currentChat];
+        document.getElementById('room-name').textContent = chat.name;
+        document.getElementById('room-avatar').style.backgroundImage = `url('${chat.avatar}')`;
+        document.getElementById('message-list').innerHTML = chat.messages.map(m => `<div class='bubble-wrap'><div class='bubble ${m.me ? 'me' : 'you'}'>${m.text}</div></div>`).join('');
+        chat.unread = 0; renderChatList();
+      };
+      document.getElementById('back-chat-list').onclick = () => showTab('tab-chat-list');
+      document.getElementById('send-message').onclick = () => {
+        const input = document.getElementById('message-input');
+        const text = input.textContent.trim();
+        if (!text || text === '메시지를 입력하세요...') return;
+        state.chats[state.currentChat].messages.push({ me:true, text });
+        state.chats[state.currentChat].preview = text;
+        input.textContent = '메시지를 입력하세요...';
+        renderChatRoom();
+      };
+
+      const renderNearby = () => {
+        document.getElementById('nearby-list').innerHTML = state.places.map((place, idx) => `
+          <div class='map-item'>
+            <h3>${place.name}</h3>
+            <div>${place.detail}</div>
+            <div class='btn-row'>
+              <button class='small-btn secondary' data-place-detail='${idx}'>상세보기</button>
+              <button class='small-btn primary' data-place-share='${idx}'>채팅으로 공유</button>
+            </div>
+          </div>
+        `).join('');
+        document.querySelectorAll('[data-place-detail]').forEach(btn => btn.onclick = () => showToast(state.places[btn.dataset.placeDetail].detail));
+        document.querySelectorAll('[data-place-share]').forEach(btn => btn.onclick = () => {
+          const place = state.places[btn.dataset.placeShare];
+          state.chats[0].messages.push({ me:true, text:`${place.name} 어떠세요? ${place.detail}` });
+          state.chats[0].preview = `${place.name} 어떠세요?`;
+          renderChatList();
+          showToast('채팅으로 위치 공유 완료');
+        });
+      };
+
+      const renderMyPage = () => {
+        document.getElementById('my-name').textContent = state.signup.name ? `${state.signup.name} 님` : '팀타덕 님';
+        document.getElementById('my-meta').textContent = `${state.signup.gender || '성별 미선택'} · ${state.signup.birth || '생년월일 미입력'} · ${state.signup.genres.join(', ') || '취향 미선택'}`;
+        document.getElementById('my-preview').textContent = state.signup.preview;
+        document.getElementById('my-coins').textContent = `${state.coins}개`;        
+        document.getElementById('battle-record').textContent = `${state.battle.total}전 ${state.battle.win}승`;
+      };
+      document.getElementById('my-record').onclick = () => { state.signup.preview = '직접 녹음 완료'; renderMyPage(); showToast('미리듣기 다시 녹음 완료'); };
+      document.getElementById('my-upload').onclick = () => { state.signup.preview = '파일 업로드 완료'; renderMyPage(); showToast('미리듣기 파일 업로드 완료'); };
+      document.getElementById('battle-win').onclick = () => { state.battle.total += 1; state.battle.win += 1; renderMyPage(); showToast('승리 기록 추가'); };
+      document.getElementById('battle-total').onclick = () => { state.battle.total += 1; renderMyPage(); showToast('배틀 기록 추가'); };
+
+      document.querySelectorAll('.nav button').forEach(btn => btn.onclick = () => showTab(btn.dataset.tab));
+
+      renderHome(); renderChatList(); renderChatRoom(); renderNearby(); renderMyPage();
     </script>
   </body>
 </html>
