@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Singmate Prototype</title>
+    <style>
+      @import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&display=swap');
+      * { box-sizing: border-box; }
+      body { margin: 0; font-family: 'Cabinet Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #2f176f; color: #fff; }
+      .app { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+      .phone { width: 100%; max-width: 430px; min-height: 860px; background: #4c2a99; border-radius: 38px; padding: 22px 18px 110px; position: relative; overflow: hidden; box-shadow: 0 28px 50px rgba(10,4,28,.38); }
+      .shape { position: absolute; z-index: 0; }
+      .circle { border-radius: 50%; background: #d7ff63; }
+      .star { width: 110px; height: 110px; background: #ff4e7a; clip-path: polygon(50% 0%, 62% 35%, 100% 50%, 62% 65%, 50% 100%, 38% 65%, 0% 50%, 38% 35%); }
+      .blob { width: 124px; height: 84px; background: #b792ff; border-radius: 50px; }
+      .content { position: relative; z-index: 1; }
+      .status { display: flex; justify-content: space-between; font-weight: 800; font-size: 18px; margin-bottom: 18px; }
+      .screen { display: none; }
+      .screen.active { display: block; }
+      .card { background: rgba(83,49,165,.92); border-radius: 34px; padding: 18px; box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); backdrop-filter: blur(8px); }
+      .login-card { margin-top: 180px; }
+      .social, .field, .submit, .ghost { border-radius: 999px; padding: 15px 18px; font-weight: 800; text-align: center; border: none; width: 100%; }
+      .social { background: #fff; color: #4c2a99; margin-bottom: 10px; }
+      .field { background: rgba(255,255,255,.12); color: rgba(255,255,255,.96); text-align: left; margin-bottom: 10px; font-weight: 500; }
+      .field input, .field select { width: 100%; margin-top: 6px; background: transparent; border: none; outline: none; color: #fff; font-size: 16px; font-family: inherit; }
+      .submit { background: #ff4e7a; color: #fff; margin-top: 10px; }
+      .ghost { background: rgba(255,255,255,.12); color: #fff; margin-top: 10px; }
+      .helper { margin-top: 14px; text-align: center; color: rgba(255,255,255,.9); font-size: 14px; }
+      .helper button { background: none; border: none; color: #d7ff63; font: inherit; font-weight: 800; }
+      .section-title { font-size: 30px; line-height: 1; letter-spacing: -.06em; margin: 0 0 10px; }
+      .section-desc { color: rgba(255,255,255,.86); font-size: 15px; line-height: 1.5; margin: 0 0 16px; }
+      .steps { display: flex; gap: 8px; margin: 0 0 16px; }
+      .step { flex: 1; height: 6px; border-radius: 999px; background: rgba(255,255,255,.16); }
+      .step.on { background: #d7ff63; }
+      .chip-group { display: flex; flex-wrap: wrap; gap: 8px; }
+      .chip { border: 1px solid rgba(255,255,255,.18); color: #fff; background: rgba(255,255,255,.08); border-radius: 999px; padding: 10px 14px; font: inherit; }
+      .chip.selected { background: #d7ff63; color: #432081; border-color: transparent; font-weight: 800; }
+      .preview-box { background: rgba(255,255,255,.08); border-radius: 26px; padding: 18px; margin-top: 10px; }
+      .permission { display: grid; gap: 10px; margin-top: 12px; }
+      .permission button { border: none; border-radius: 18px; padding: 14px; font: inherit; font-weight: 700; }
+      .allow { background: #d7ff63; color: #432081; }
+      .deny { background: rgba(255,255,255,.12); color: #fff; }
+      .home-card { min-height: 650px; background: linear-gradient(180deg, rgba(34,18,76,.04) 0%, rgba(34,18,76,.08) 100%), url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80') center/cover; border-radius: 34px; overflow: hidden; padding: 18px; position: relative; box-shadow: 0 24px 40px rgba(0,0,0,.22); margin-top: 130px; }
+      .home-card::after { content:''; position:absolute; inset:0; background: linear-gradient(180deg, rgba(35,18,79,.02) 0%, rgba(35,18,79,.14) 35%, rgba(35,18,79,.85) 100%); }
+      .home-overlay { position: relative; z-index: 1; height: 100%; display:flex; flex-direction:column; }
+      .top-meter { display:flex; justify-content:space-between; gap:12px; align-items:center; }
+      .meter-lines { display:grid; grid-template-columns:1fr 1fr; gap:10px; flex:1; }
+      .meter-lines span { display:block; height:6px; border-radius:999px; background: rgba(215,255,99,.35); }
+      .meter-lines span:first-child { background:#d7ff63; }
+      .rate-badge { background:#d7ff63; color:#432081; border-radius:999px; min-height:44px; padding:0 16px; display:inline-flex; align-items:center; font-weight:800; }
+      .home-spacer { flex:1; }
+      .home-info h2 { margin:0 0 10px; font-size:34px; letter-spacing:-.06em; }
+      .distance { color: rgba(255,255,255,.88); }
+      .home-meta { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+      .home-meta span { background: rgba(255,255,255,.16); border-radius:999px; padding:8px 12px; font-weight:700; }
+      .home-actions { display:grid; grid-template-columns:70px 1fr 70px; gap:14px; align-items:center; margin-top: 14px; }
+      .round-btn { width:70px; height:70px; border-radius:50%; border:none; font-size:30px; font-weight:800; }
+      .round-btn.pass { background:#4a2695; color:#fff; }
+      .round-btn.like { background:#ff4e7a; color:#fff; }
+      .round-btn.play-main { width:96px; height:96px; justify-self:center; background:#d7ff63; color:#432081; box-shadow:0 0 0 8px rgba(215,255,99,.18); }
+      .home-caption { margin-top:12px; color: rgba(255,255,255,.88); font-size: 13px; text-align:center; }
+      .top-link { display:flex; justify-content:space-between; align-items:center; margin: 4px 0 18px; }
+      .top-link button { border:none; background: rgba(255,255,255,.1); color:#fff; width:44px; height:44px; border-radius:50%; font-size:20px; }
+      .result { margin-top: 14px; color: #d7ff63; font-weight: 700; min-height: 20px; }
+    </style>
+  </head>
+  <body>
+    <div class="app">
+      <div class="phone">
+        <div class="shape star" style="top:74px; right:-6px;"></div>
+        <div class="shape blob" style="top:142px; left:-38px;"></div>
+        <div class="shape circle" style="top:208px; right:24px; width:170px; height:170px;"></div>
+        <div class="content">
+          <div class="status"><span>9:41</span><span>●●●</span></div>
+
+          <section class="screen active" id="login-screen">
+            <div class="card login-card">
+              <button class="social">카카오로 로그인</button>
+              <button class="social">Google로 로그인</button>
+              <label class="field">휴대폰 번호<input id="login-phone" placeholder="010-0000-0000" /></label>
+              <label class="field">인증번호<input id="login-code" placeholder="123456" /></label>
+              <button class="submit" id="login-btn">로그인</button>
+              <div class="helper">아직 계정이 없으신가요? <button id="go-signup">회원가입</button></div>
+              <div class="result" id="login-result"></div>
+            </div>
+          </section>
+
+          <section class="screen" id="signup-step-1">
+            <div class="top-link"><button class="back" data-back="login-screen">←</button><span></span></div>
+            <div class="card">
+              <div class="steps"><span class="step on"></span><span class="step"></span><span class="step"></span><span class="step"></span><span class="step"></span></div>
+              <h2 class="section-title">기본 인증</h2>
+              <p class="section-desc">회원가입 첫 단계입니다. 휴대폰 인증으로 시작합니다.</p>
+              <label class="field">휴대폰 번호<input id="signup-phone" placeholder="010-0000-0000" /></label>
+              <label class="field">인증번호<input id="signup-code" placeholder="123456" /></label>
+              <button class="submit" data-next="signup-step-2">다음</button>
+            </div>
+          </section>
+
+          <section class="screen" id="signup-step-2">
+            <div class="top-link"><button class="back" data-back="signup-step-1">←</button><span></span></div>
+            <div class="card">
+              <div class="steps"><span class="step on"></span><span class="step on"></span><span class="step"></span><span class="step"></span><span class="step"></span></div>
+              <h2 class="section-title">프로필 기본정보</h2>
+              <p class="section-desc">이름, 생년월일, 성별을 입력합니다.</p>
+              <label class="field">이름<input id="signup-name" placeholder="이름" /></label>
+              <label class="field">생년월일<input id="signup-birth" placeholder="1999-01-01" /></label>
+              <label class="field">성별<select id="signup-gender"><option>선택</option><option>여성</option><option>남성</option></select></label>
+              <button class="submit" data-next="signup-step-3">다음</button>
+            </div>
+          </section>
+
+          <section class="screen" id="signup-step-3">
+            <div class="top-link"><button class="back" data-back="signup-step-2">←</button><span></span></div>
+            <div class="card">
+              <div class="steps"><span class="step on"></span><span class="step on"></span><span class="step on"></span><span class="step"></span><span class="step"></span></div>
+              <h2 class="section-title">취향 선택</h2>
+              <p class="section-desc">좋아하는 장르와 관심사를 선택합니다.</p>
+              <div class="chip-group" id="genre-group">
+                <button class="chip">발라드</button><button class="chip">OST</button><button class="chip">K-POP</button><button class="chip">R&B</button><button class="chip">듀엣</button><button class="chip">힙합</button>
+              </div>
+              <button class="submit" data-next="signup-step-4">다음</button>
+            </div>
+          </section>
+
+          <section class="screen" id="signup-step-4">
+            <div class="top-link"><button class="back" data-back="signup-step-3">←</button><span></span></div>
+            <div class="card">
+              <div class="steps"><span class="step on"></span><span class="step on"></span><span class="step on"></span><span class="step on"></span><span class="step"></span></div>
+              <h2 class="section-title">권한 및 미리듣기</h2>
+              <p class="section-desc">위치 권한은 여기서 받습니다. 이후 15초 미리듣기를 등록합니다.</p>
+              <div class="permission">
+                <button class="allow" id="allow-location">위치 권한 허용</button>
+                <button class="deny">나중에 하기</button>
+              </div>
+              <div class="preview-box">
+                <strong>15초 미리듣기 업로드</strong>
+                <p style="margin:8px 0 0; color:rgba(255,255,255,.78);">녹음 또는 파일 업로드 중 하나를 선택합니다.</p>
+                <div style="display:grid; gap:10px; margin-top:12px;">
+                  <button class="ghost">직접 녹음</button>
+                  <button class="ghost">파일 업로드</button>
+                </div>
+              </div>
+              <button class="submit" data-next="signup-step-5">다음</button>
+            </div>
+          </section>
+
+          <section class="screen" id="signup-step-5">
+            <div class="top-link"><button class="back" data-back="signup-step-4">←</button><span></span></div>
+            <div class="card">
+              <div class="steps"><span class="step on"></span><span class="step on"></span><span class="step on"></span><span class="step on"></span><span class="step on"></span></div>
+              <h2 class="section-title">가입 완료</h2>
+              <p class="section-desc">회원가입이 끝났습니다. 이제 실제 홈 카드 화면으로 들어갑니다.</p>
+              <button class="submit" id="enter-home">홈으로 이동</button>
+            </div>
+          </section>
+
+          <section class="screen" id="home-screen">
+            <div class="home-card">
+              <div class="home-overlay">
+                <div class="top-meter"><div class="meter-lines"><span></span><span></span></div><div class="rate-badge">94%</div></div>
+                <div class="home-spacer"></div>
+                <div class="home-info">
+                  <h2>수진, 27</h2>
+                  <div class="distance">📍 성수 · 1.2km away</div>
+                  <div class="home-meta"><span>ENFP</span><span>OST</span><span>감성 발라드</span></div>
+                  <div class="home-actions">
+                    <button class="round-btn pass">✕</button>
+                    <button class="round-btn play-main">▶</button>
+                    <button class="round-btn like">♡</button>
+                  </div>
+                  <div class="home-caption">이 화면에서 옆으로 넘기며 다음 프로필을 볼 수 있습니다.</div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const screens = document.querySelectorAll('.screen');
+      const show = (id) => {
+        screens.forEach(s => s.classList.toggle('active', s.id === id));
+      };
+      document.getElementById('go-signup').onclick = () => show('signup-step-1');
+      document.querySelectorAll('[data-next]').forEach(btn => btn.onclick = () => show(btn.dataset.next));
+      document.querySelectorAll('[data-back]').forEach(btn => btn.onclick = () => show(btn.dataset.back));
+      document.getElementById('enter-home').onclick = () => show('home-screen');
+      document.getElementById('login-btn').onclick = () => {
+        const phone = document.getElementById('login-phone').value.trim();
+        const code = document.getElementById('login-code').value.trim();
+        document.getElementById('login-result').textContent = phone && code ? '로그인 테스트 통과. 실제 연동 전 임시 프로토타입입니다.' : '휴대폰 번호와 인증번호를 입력해주세요.';
+      };
+      document.querySelectorAll('.chip').forEach(chip => chip.onclick = () => chip.classList.toggle('selected'));
+      document.getElementById('allow-location').onclick = (e) => { e.target.textContent = '위치 권한 허용됨'; };
+    </script>
+  </body>
+</html>
