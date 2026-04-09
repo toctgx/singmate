@@ -3,163 +3,373 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sigmate Wireframe v1</title>
+    <title>Singmate UI Preview</title>
     <style>
-      body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:#f6f7fb; color:#111827; }
-      .wrap { max-width: 980px; margin: 0 auto; padding: 40px 20px 80px; }
-      .hero { background:#fff; border:1px solid #e5e7eb; border-radius:24px; padding:28px; box-shadow:0 12px 28px rgba(17,24,39,.06); margin-bottom:20px; }
-      h1 { margin:0 0 10px; font-size:40px; }
-      h2 { margin:32px 0 12px; font-size:28px; }
-      h3 { margin:24px 0 10px; font-size:20px; }
-      p, li { line-height:1.7; color:#374151; }
-      .card { background:#fff; border:1px solid #e5e7eb; border-radius:24px; padding:24px; margin-bottom:18px; box-shadow:0 10px 22px rgba(17,24,39,.05); }
-      pre { background:#0f172a; color:#e5e7eb; padding:18px; border-radius:18px; overflow:auto; font-size:14px; line-height:1.55; }
-      .tag { display:inline-block; background:#e8fff0; color:#166534; padding:8px 12px; border-radius:999px; font-weight:700; margin:4px 8px 0 0; font-size:14px; }
-      ul { padding-left: 20px; }
+      @import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800&display=swap');
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        font-family: 'Cabinet Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        background: #2f176f;
+        color: #fff;
+      }
+      .page {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 36px 18px 80px;
+      }
+      .hero {
+        margin-bottom: 24px;
+      }
+      .hero small {
+        color: #d7ff63;
+        letter-spacing: 0.24em;
+        font-weight: 800;
+      }
+      .hero h1 {
+        margin: 8px 0 10px;
+        font-size: 72px;
+        line-height: 0.92;
+        letter-spacing: -0.08em;
+      }
+      .hero p {
+        margin: 0;
+        font-size: 18px;
+        color: rgba(255,255,255,0.78);
+      }
+      .screens {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+        gap: 20px;
+        align-items: start;
+      }
+      .phone {
+        position: relative;
+        overflow: hidden;
+        min-height: 860px;
+        border-radius: 38px;
+        background: #4c2a99;
+        padding: 22px 18px 110px;
+        box-shadow: 0 28px 50px rgba(10, 4, 28, 0.38);
+      }
+      .phone.short { min-height: 820px; }
+      .shape { position: absolute; z-index: 0; }
+      .circle { border-radius: 50%; background: #d7ff63; }
+      .blob { width: 124px; height: 84px; background: #b792ff; border-radius: 50px; }
+      .squiggle { width: 116px; height: 64px; background: #ff4e7a; border-radius: 36px; box-shadow: 48px 0 0 #ff4e7a; }
+      .star { width: 110px; height: 110px; background: #ff4e7a; clip-path: polygon(50% 0%, 62% 35%, 100% 50%, 62% 65%, 50% 100%, 38% 65%, 0% 50%, 38% 35%); }
+      .tri { width: 0; height: 0; border-left: 42px solid transparent; border-right: 42px solid transparent; border-bottom: 72px solid #d7ff63; }
+      .content { position: relative; z-index: 1; }
+      .status {
+        display: flex;
+        justify-content: space-between;
+        font-weight: 800;
+        font-size: 18px;
+        margin-bottom: 18px;
+      }
+      .subtext { color: rgba(255,255,255,0.92); font-size: 15px; line-height: 1.6; }
+      .card {
+        position: relative;
+        background: rgba(83, 49, 165, 0.92);
+        border-radius: 34px;
+        padding: 18px;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.06);
+        backdrop-filter: blur(8px);
+      }
+      .home-card {
+        min-height: 650px;
+        background: linear-gradient(180deg, rgba(34,18,76,0.04) 0%, rgba(34,18,76,0.08) 100%), url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80') center/cover;
+        border-radius: 34px;
+        overflow: hidden;
+        padding: 18px;
+        position: relative;
+        box-shadow: 0 24px 40px rgba(0,0,0,0.22);
+      }
+      .home-card::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(35,18,79,0.02) 0%, rgba(35,18,79,0.14) 35%, rgba(35,18,79,0.85) 100%);
+      }
+      .home-overlay { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; }
+      .top-meter { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+      .meter-lines { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; flex: 1; }
+      .meter-lines span { display: block; height: 6px; border-radius: 999px; background: rgba(215,255,99,0.35); }
+      .meter-lines span:first-child { background: #d7ff63; }
+      .rate-badge { background: #d7ff63; color: #432081; border-radius: 999px; min-height: 44px; padding: 0 16px; display: inline-flex; align-items: center; gap: 8px; font-weight: 800; }
+      .heart-mini { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #432081; display: grid; place-items: center; font-size: 12px; }
+      .home-spacer { flex: 1; }
+      .home-info h2 { margin: 0 0 10px; font-size: 34px; letter-spacing: -0.06em; }
+      .distance { display: flex; align-items: center; gap: 8px; font-size: 15px; color: rgba(255,255,255,0.86); }
+      .home-meta { display: flex; gap: 8px; flex-wrap: wrap; margin: 16px 0 14px; }
+      .home-meta .chip { background: rgba(255,255,255,0.16); }
+      .home-actions { display: grid; grid-template-columns: 70px 1fr 70px; gap: 14px; align-items: center; margin-top: 14px; }
+      .round-btn { width: 70px; height: 70px; border-radius: 50%; border: none; font-size: 30px; font-weight: 800; }
+      .round-btn.pass { background: #4a2695; color: #fff; }
+      .round-btn.like { background: #ff4e7a; color: #fff; }
+      .round-btn.play-main { width: 96px; height: 96px; justify-self: center; background: #d7ff63; color: #432081; box-shadow: 0 0 0 8px rgba(215,255,99,0.18); }
+      .home-caption { margin-top: 12px; color: rgba(255,255,255,0.88); font-size: 13px; text-align: center; }
+      .title { font-size: 24px; line-height: 1.05; text-align: center; letter-spacing: -0.06em; font-weight: 700; margin: 0 0 8px; }
+      .title span { color: #d7ff63; }
+      .subtitle { text-align: center; color: rgba(255,255,255,0.82); margin: 0 0 16px; font-size: 15px; }
+      .panel {
+        background: rgba(255,255,255,0.06);
+        border-radius: 26px;
+        padding: 18px;
+      }
+      .row { display: flex; justify-content: space-between; gap: 12px; align-items: center; }
+      .row h2, .row h3 { margin: 0; letter-spacing: -0.05em; }
+      .row h2 { font-size: 30px; }
+      .meta { color: rgba(255,255,255,0.72); font-size: 14px; }
+      .chips { display: flex; gap: 8px; flex-wrap: wrap; margin: 14px 0; }
+      .chip { border-radius: 999px; padding: 8px 12px; background: rgba(255,255,255,0.1); font-size: 13px; font-weight: 700; }
+      .preview {
+        display: flex; align-items: center; justify-content: space-between; gap: 12px;
+        background: #5e37b0; border-radius: 999px; padding: 12px 14px 12px 18px; margin-bottom: 14px;
+      }
+      .preview strong { display: block; font-size: 15px; margin-bottom: 3px; }
+      .preview span { color: rgba(255,255,255,0.68); font-size: 11px; }
+      .play {
+        width: 54px; height: 54px; border: none; border-radius: 50%; background: #d7ff63; color: #4c2a99; font-size: 20px; font-weight: 800;
+      }
+      .actions { display: grid; grid-template-columns: 62px 1fr 1fr; gap: 10px; }
+      .actions button, .inputbar button, .coin-btn, .battle-btn, .list-btn {
+        border: none; border-radius: 999px; font-weight: 800;
+      }
+      .pass { background: rgba(255,255,255,0.12); color: #fff; min-height: 54px; }
+      .mate { background: #ffffff; color: #4c2a99; min-height: 54px; }
+      .battle { background: #ff4e7a; color: #fff; min-height: 54px; }
+      .section-title { font-size: 30px; letter-spacing: -0.06em; margin: 18px 0 10px; }
+      .chat-header, .map-card, .mypage-card { background: rgba(255,255,255,0.12); border-radius: 26px; padding: 18px; }
+      .chat-list-shell { padding-top: 8px; }
+      .chat-list-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px; }
+      .chat-list-top h2 { margin: 0; font-size: 34px; letter-spacing: -0.06em; }
+      .icon-round { width: 52px; height: 52px; border-radius: 50%; background: rgba(255,255,255,0.08); display: grid; place-items: center; font-size: 22px; font-weight: 800; }
+      .story-row { display: flex; gap: 14px; overflow: hidden; margin-bottom: 18px; }
+      .story-add, .story-user { flex: 0 0 auto; text-align: center; }
+      .story-plus { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,0.08); display: grid; place-items: center; font-size: 30px; }
+      .story-avatar { width: 68px; height: 68px; border-radius: 50%; padding: 3px; background: #d7ff63; }
+      .story-avatar span { display: block; width: 100%; height: 100%; border-radius: 50%; background-size: cover; background-position: center; }
+      .chat-room { background: #6430bf; border-radius: 28px; padding: 18px; display: grid; grid-template-columns: 72px 1fr auto; gap: 14px; align-items: center; margin-bottom: 14px; }
+      .room-avatar { width: 72px; height: 72px; border-radius: 50%; background-size: cover; background-position: center; }
+      .room-main h3 { margin: 0 0 6px; font-size: 22px; letter-spacing: -0.04em; }
+      .room-main p { margin: 0; color: rgba(255,255,255,0.72); font-size: 14px; }
+      .room-main .thumb-line { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.56); }
+      .mini-thumb { width: 30px; height: 30px; border-radius: 8px; background-size: cover; background-position: center; }
+      .badge-col { display: grid; justify-items: end; gap: 10px; }
+      .badge { min-width: 34px; height: 30px; padding: 0 10px; border-radius: 999px; background: #d7ff63; color: #3b1d82; display: grid; place-items: center; font-weight: 800; }
+      .dot { width: 10px; height: 10px; border-radius: 50%; background: #d7ff63; }
+      .chat-bottom-nav { margin: 22px auto 0; width: 92%; background: #ba8dff; border-radius: 999px; padding: 10px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+      .chat-bottom-nav button { border: none; background: transparent; min-height: 70px; border-radius: 999px; color: #432081; font-size: 28px; }
+      .chat-bottom-nav .active { background: #4b2497; color: #fff; }
+      .battle-card { background: #5e37b0; border-radius: 28px; padding: 18px; margin-top: 18px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
+      .battle-options { display: grid; gap: 10px; margin-top: 12px; }
+      .battle-btn { min-height: 50px; background: rgba(255,255,255,0.12); color: #fff; }
+      .battle-btn.primary { background: #d7ff63; color: #4c2a99; }
+      .map-box { height: 210px; border-radius: 28px; background: linear-gradient(135deg, #d7ff63 0%, #b792ff 100%); margin-bottom: 14px; position: relative; overflow: hidden; }
+      .pin { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #ff4e7a; box-shadow: 0 0 0 8px rgba(255,255,255,0.22); }
+      .p1 { top: 32%; left: 30%; } .p2 { top: 48%; left: 60%; } .p3 { top: 62%; left: 42%; }
+      .location-item, .mypage-item { background: rgba(255,255,255,0.12); border-radius: 22px; padding: 16px; margin-top: 12px; }
+      .location-item h3, .mypage-item h3 { margin: 0 0 6px; font-size: 20px; letter-spacing: -0.04em; }
+      .list-actions { display: flex; gap: 8px; margin-top: 12px; }
+      .list-btn { background: #fff; color: #4c2a99; padding: 12px 14px; }
+      .list-btn.share { background: #d7ff63; }
+      .profile-top { text-align: center; margin-bottom: 16px; }
+      .avatar { width: 92px; height: 92px; border-radius: 50%; background: url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80') center/cover; margin: 0 auto 12px; box-shadow: 0 10px 24px rgba(0,0,0,0.28); }
+      .coin-box { background: #d7ff63; color: #4c2a99; border-radius: 24px; padding: 16px; margin-top: 12px; }
+      .coin-btn { background: #4c2a99; color: #fff; padding: 12px 14px; margin-top: 10px; }
+      .nav {
+        position: absolute; left: 16px; right: 16px; bottom: 16px; background: rgba(82, 48, 163, 0.98); border-radius: 999px; padding: 14px 10px;
+        display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; box-shadow: 0 18px 32px rgba(19, 7, 51, 0.3);
+      }
+      .nav button { border: none; background: transparent; color: rgba(255,255,255,0.82); display: grid; justify-items: center; gap: 6px; font-size: 12px; font-weight: 700; }
+      .nav button span:first-child { font-size: 22px; line-height: 1; }
+      .nav .active { color: #d7ff63; }
+      .login-card { margin-top: 200px; }
+      .field, .social { border-radius: 999px; padding: 14px 16px; }
+      .social { background: #fff; color: #4c2a99; font-weight: 800; margin-bottom: 10px; text-align: center; }
+      .field { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.92); margin-bottom: 10px; }
+      .signup-link { margin-top: 14px; text-align: center; color: rgba(255,255,255,0.92); font-size: 14px; }
+      .signup-link strong { color: #d7ff63; }
+      .submit { background: #ff4e7a; color: #fff; text-align: center; border-radius: 999px; padding: 16px; font-weight: 800; margin-top: 8px; }
+      .flow-card { margin-top: 18px; background: rgba(255,255,255,0.08); border-radius: 24px; padding: 16px; }
+      .flow-card h3 { margin: 0 0 12px; font-size: 18px; }
+      .flow-list { display: grid; gap: 10px; }
+      .flow-item { background: rgba(0,0,0,0.18); border-radius: 18px; padding: 12px 14px; font-size: 14px; line-height: 1.45; }
+      .flow-item strong { color: #d7ff63; display: block; margin-bottom: 4px; }
     </style>
   </head>
   <body>
-    <div class="wrap">
+    <div class="page">
       <section class="hero">
-        <h1>Sigmate Wireframe v1</h1>
-        <p>코인노래방 함께 갈 친구를 위치 기반으로 찾고, 15초 미리듣기 음성 프로필로 매칭되는 앱의 1차 와이어프레임입니다.</p>
-        <div>
-          <span class="tag">15초 미리듣기</span>
-          <span class="tag">싱메이트</span>
-          <span class="tag">싱배틀</span>
-          <span class="tag">위치 기반</span>
-          <span class="tag">채팅</span>
-        </div>
+        <small>SINGMATE UI SYSTEM</small>
+        <h1>dateasy-inspired<br/>singmate screens</h1>
+        <p>보라 중심 배경, 라임 포인트, 굵은 타이포, 대형 도형 그래픽 무드를 전체 핵심 화면에 일괄 적용한 프리뷰입니다.</p>
       </section>
 
-      <section class="card">
-        <h2>0. 로그인 / 시작 화면</h2>
-        <pre>┌──────────────────────────────┐
-│          Sigmate             │
-│   코인노래방 함께 갈 친구 찾기  │
-│                              │
-│    [ 카카오로 시작하기 ]       │
-│    [ 애플로 시작하기 ]         │
-│    [ ID / PW 로그인 ]         │
-│                              │
-│   처음이신가요? [회원가입]      │
-└──────────────────────────────┘</pre>
-      </section>
+      <section class="screens">
+        <article class="phone short">
+          <div class="shape star" style="top:84px; right:20px;"></div>
+          <div class="shape circle" style="width:150px;height:150px; top:120px; left:-20px;"></div>
+          <div class="shape tri" style="top:110px; right:92px; transform:rotate(-16deg);"></div>
+          <div class="content">
+            <div class="status"><span>9:41</span><span>●●●</span></div>
+            <div class="card login-card">
+              <div class="social">카카오로 로그인</div>
+              <div class="social">Google로 로그인</div>
+              <div class="field">휴대폰 번호</div>
+              <div class="field">인증번호</div>
+              <div class="field">위치 권한 허용</div>
+              <div class="submit">로그인</div>
+              <div class="signup-link">아직 계정이 없으신가요? <strong>회원가입</strong></div>
+            </div>
+            <div class="flow-card">
+              <h3>회원가입 플로우</h3>
+              <div class="flow-list">
+                <div class="flow-item"><strong>STEP 1</strong>휴대폰 번호 입력 → 인증번호 확인 → 위치 권한 허용</div>
+                <div class="flow-item"><strong>STEP 2</strong>이름 / 생년월일 / 성별 입력</div>
+                <div class="flow-item"><strong>STEP 3</strong>노래 취향, 선호 장르, 관심사 선택</div>
+                <div class="flow-item"><strong>STEP 4</strong>MBTI 또는 성향 테스트 선택</div>
+                <div class="flow-item"><strong>STEP 5</strong>프로필 사진 등록 + 15초 미리듣기 업로드</div>
+                <div class="flow-item"><strong>STEP 6</strong>가입 완료 후 홈 스와이프 카드 진입</div>
+              </div>
+            </div>
+          </div>
+        </article>
 
-      <section class="card">
-        <h2>회원가입 플로우</h2>
-        <h3>1단계 - 기본 정보</h3>
-        <pre>┌──────────────────────────────┐
-│         회원가입              │
-│                              │
-│  휴대폰 번호 [            ]   │
-│  인증번호   [            ]   │
-│  비밀번호   [            ]   │
-│  닉네임     [            ]   │
-│                              │
-│         [ 다음 ]             │
-└──────────────────────────────┘</pre>
-        <h3>2단계 - 프로필 정보</h3>
-        <pre>┌──────────────────────────────┐
-│        프로필 설정            │
-│                              │
-│  프로필 사진 업로드           │
-│  성별       [ 선택 ]          │
-│  나이       [ 선택 ]          │
-│  지역       [ 선택 ]          │
-│  MBTI      [ 선택 ]          │
-│  좋아하는 장르 [ 선택 ]       │
-│                              │
-│         [ 다음 ]             │
-└──────────────────────────────┘</pre>
-        <h3>3단계 - 15초 미리듣기 등록</h3>
-        <pre>┌──────────────────────────────┐
-│     15초 미리듣기 등록         │
-│                              │
-│  [ 직접 녹음하기 ]            │
-│  [ 파일 업로드 ]              │
-│                              │
-│  안내: 15초 초과 시            │
-│  앞 15초만 자동 등록됩니다      │
-│                              │
-│      업로드된 샘플 미리재생     │
-│        [ ▶ 재생 ]             │
-│                              │
-│         [ 완료 ]              │
-└──────────────────────────────┘</pre>
-      </section>
+        <article class="phone">
+          <div class="shape star" style="top:74px; right:-6px;"></div>
+          <div class="shape blob" style="top:142px; left:-38px;"></div>
+          <div class="shape tri" style="top:108px; right:70px; transform: rotate(-18deg);"></div>
+          <div class="shape circle" style="top:208px; right:24px; width:170px; height:170px;"></div>
+          <div class="shape tri" style="bottom:72px; left:-12px; transform: rotate(18deg); border-bottom-color:#ff4e7a;"></div>
+          <div class="shape circle" style="bottom:34px; left:56px; width:138px; height:138px;"></div>
+          <div class="shape squiggle" style="bottom:70px; right:-16px; transform: rotate(16deg);"></div>
+          <div class="content">
+            <div class="status"><span>9:41</span><span>●●●</span></div>
+            <section class="home-card" style="margin-top:158px;">
+              <div class="home-overlay">
+                <div class="top-meter">
+                  <div class="meter-lines"><span></span><span></span></div>
+                  <div class="rate-badge"><span class="heart-mini">♡</span>94%</div>
+                </div>
+                <div class="home-spacer"></div>
+                <div class="home-info">
+                  <h2>수진, 27</h2>
+                  <div class="distance">📍 성수 · 1.2km away</div>
+                  <div class="home-meta"><span class="chip">ENFP</span><span class="chip">OST</span><span class="chip">감성 발라드</span></div>
+                  <div class="home-actions">
+                    <button class="round-btn pass">✕</button>
+                    <button class="round-btn play-main">❚❚</button>
+                    <button class="round-btn like">♡</button>
+                  </div>
+                  <div class="home-caption">가운데 버튼은 15초 미리듣기, 좌우 액션 후 프로필을 옆으로 넘기는 구조입니다.</div>
+                </div>
+              </div>
+            </section>
+          </div>
+          <nav class="nav"><button class="active"><span>⌂</span><span>홈</span></button><button><span>💬</span><span>채팅</span></button><button><span>📍</span><span>코노</span></button><button><span>👤</span><span>마이</span></button></nav>
+        </article>
 
-      <section class="card">
-        <h2>1. 홈 화면 (메인 매칭 카드)</h2>
-        <pre>┌──────────────────────────────┐
-│ Sigmate         [알림] [채팅] │
-│                              │
-│   ┌──────────────────────┐   │
-│   │      프로필 사진      │   │
-│   │                      │   │
-│   │  민지, 27 / 성수      │   │
-│   │  ENFP                │   │
-│   │  좋아하는 장르: 발라드 │   │
-│   │                      │   │
-│   │   [▶ 15초 미리듣기]   │   │
-│   │                      │   │
-│   │ [싱메이트] [싱배틀]   │   │
-│   └──────────────────────┘   │
-│                              │
-│   ← 좌 / 우 스와이프 →        │
-│                              │
-│ [홈] [주변 코노] [채팅] [마이] │
-└──────────────────────────────┘</pre>
-      </section>
+        <article class="phone short">
+          <div class="content">
+            <div class="status"><span>9:41</span><span>●●●</span></div>
+            <div class="chat-list-shell">
+              <div class="chat-list-top">
+                <h2>Chat</h2>
+                <div class="icon-round">⌕</div>
+              </div>
 
-      <section class="card">
-        <h2>2. 채팅 화면</h2>
-        <pre>┌──────────────────────────────┐
-│ ← 민지                    ⋮   │
-├──────────────────────────────┤
-│ 안녕하세요!                 │
-│ 오늘 저녁 코노 가능하세요?   │
-│                              │
-│ 8시쯤 괜찮아요               │
-│ 어느 쪽 원하세요?            │
-│                              │
-├──────────────────────────────┤
-│ [메시지 입력...]     [전송]   │
-└──────────────────────────────┘</pre>
-      </section>
+              <div class="story-row">
+                <div class="story-add"><div class="story-plus">+</div></div>
+                <div class="story-user"><div class="story-avatar"><span style="background-image:url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80')"></span></div></div>
+                <div class="story-user"><div class="story-avatar"><span style="background-image:url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80')"></span></div></div>
+                <div class="story-user"><div class="story-avatar"><span style="background-image:url('https://images.unsplash.com/photo-1521119989659-a83eee488004?auto=format&fit=crop&w=900&q=80')"></span></div></div>
+                <div class="story-user"><div class="story-avatar"><span style="background-image:url('https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?auto=format&fit=crop&w=900&q=80')"></span></div></div>
+                <div class="story-user"><div class="story-avatar"><span style="background-image:url('https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80')"></span></div></div>
+              </div>
 
-      <section class="card">
-        <h2>3. 주변 코인노래방 찾기</h2>
-        <pre>┌──────────────────────────────┐
-│      주변 코인노래방          │
-│                              │
-│   [ 지도 영역 ]               │
-│                              │
-│ ---------------------------- │
-│ 1. 수노래방 성수점   320m     │
-│ 2. 코인싱 성수역점   540m     │
-│ 3. 락휴 코노 건대점   810m    │
-│                              │
-│ [홈] [주변 코노] [채팅] [마이] │
-└──────────────────────────────┘</pre>
-      </section>
+              <div class="chat-room">
+                <div class="room-avatar" style="background-image:url('https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=900&q=80')"></div>
+                <div class="room-main"><h3>Lucy, 22</h3><p>Say hi!</p></div>
+                <div class="badge-col"><div class="badge">3</div></div>
+              </div>
 
-      <section class="card">
-        <h2>4. 마이페이지</h2>
-        <pre>┌──────────────────────────────┐
-│          마이페이지           │
-│                              │
-│  프로필 사진 / 닉네임         │
-│  지역 / MBTI / 장르          │
-│                              │
-│  [내 프로필 수정]             │
-│  [15초 미리듣기 다시 등록]    │
-│  [싱코인 구매]               │
-│  [신청/매칭 내역]            │
-│  [설정]                      │
-│                              │
-│ [홈] [주변 코노] [채팅] [마이] │
-└──────────────────────────────┘</pre>
+              <div class="chat-room">
+                <div class="room-avatar" style="background-image:url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=900&q=80')"></div>
+                <div class="room-main"><h3>Margareth, 21</h3><div class="thumb-line"><span class="mini-thumb" style="background-image:url('https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?auto=format&fit=crop&w=900&q=80')"></span><span>Photo</span></div></div>
+                <div class="badge-col"><div class="dot"></div></div>
+              </div>
+
+              <div class="chat-room">
+                <div class="room-avatar" style="background-image:url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=900&q=80')"></div>
+                <div class="room-main"><h3>Emily, 27</h3><p>Hey, how are you?</p></div>
+                <div class="badge-col"><div class="dot"></div></div>
+              </div>
+
+              <div class="chat-room">
+                <div class="room-avatar" style="background-image:url('https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=900&q=80')"></div>
+                <div class="room-main"><h3>Alissia, 20</h3><p>Is typing...</p></div>
+                <div class="badge-col"><div class="badge">1</div></div>
+              </div>
+
+              <div class="chat-room">
+                <div class="room-avatar" style="background-image:url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80')"></div>
+                <div class="room-main"><h3>Stephanie, 19</h3><div class="thumb-line"><span class="mini-thumb" style="background-image:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=900&q=80')"></span><span>It’s me with my friends</span></div></div>
+                <div class="badge-col"></div>
+              </div>
+
+              <div class="chat-bottom-nav">
+                <button>✧</button>
+                <button>◎</button>
+                <button class="active">◔</button>
+                <button>♡</button>
+              </div>
+            </div>
+          </div>
+          <nav class="nav"><button><span>⌂</span><span>홈</span></button><button class="active"><span>💬</span><span>채팅</span></button><button><span>📍</span><span>코노</span></button><button><span>👤</span><span>마이</span></button></nav>
+        </article>
+
+        <article class="phone short">
+          <div class="shape star" style="top:84px; left:-20px;"></div>
+          <div class="shape tri" style="top:100px; right:24px; transform:rotate(-12deg);"></div>
+          <div class="shape circle" style="bottom:120px; right:-18px; width:130px; height:130px;"></div>
+          <div class="content">
+            <div class="status"><span>9:41</span><span>●●●</span></div>
+            <div class="map-card">
+              <div class="map-box"><div class="pin p1"></div><div class="pin p2"></div><div class="pin p3"></div></div>
+              <div class="location-item">
+                <h3>수노래방 성수점</h3>
+                <div class="meta" style="color:rgba(255,255,255,0.9);">320m · 도보 5분</div>
+                <div class="list-actions"><button class="list-btn">상세보기</button><button class="list-btn share">채팅으로 공유</button></div>
+              </div>
+              <div class="location-item">
+                <h3>코인싱 성수역점</h3>
+                <div class="meta" style="color:rgba(255,255,255,0.9);">540m · 도보 8분</div>
+                <div class="list-actions"><button class="list-btn">상세보기</button><button class="list-btn share">채팅으로 공유</button></div>
+              </div>
+            </div>
+          </div>
+          <nav class="nav"><button><span>⌂</span><span>홈</span></button><button><span>💬</span><span>채팅</span></button><button class="active"><span>📍</span><span>코노</span></button><button><span>👤</span><span>마이</span></button></nav>
+        </article>
+
+        <article class="phone">
+          <div class="shape blob" style="top:92px; right:-22px;"></div>
+          <div class="shape circle" style="top:170px; left:-16px; width:120px; height:120px;"></div>
+          <div class="shape squiggle" style="bottom:120px; left:-8px; transform:rotate(-14deg);"></div>
+          <div class="content">
+            <div class="status"><span>9:41</span><span>●●●</span></div>
+            <div class="mypage-card">
+              <div class="profile-top"><div class="avatar"></div><h3 style="font-size:28px; margin:0;">수진, 27</h3><div class="meta" style="color:rgba(255,255,255,0.9);">성수 · ENFP · 발라드 / OST</div></div>
+              <div class="mypage-item"><h3>15초 미리듣기</h3><div class="preview" style="margin:10px 0 0;"><div><strong>현재 등록된 음성</strong><span>재생 · 다시 녹음 · 파일 재업로드</span></div><button class="play">▶</button></div></div>
+              <div class="coin-box"><strong>싱코인 28개</strong><div style="margin-top:6px; font-size:14px;">오늘 미리듣기 보상 2/3 지급 완료</div><button class="coin-btn">충전하기 / 사용내역</button></div>
+              <div class="mypage-item"><h3>신청 / 매칭 관리</h3><div class="meta" style="color:rgba(255,255,255,0.9);">보낸 싱메이트, 받은 싱배틀, 매칭 완료 내역</div></div>
+              <div class="mypage-item"><h3>배틀 기록</h3><div class="meta" style="color:rgba(255,255,255,0.9);">총 21전 · 14승 · 승률 66% · 우리동네 랭킹 3위</div></div>
+              <div class="mypage-item"><h3>설정</h3><div class="meta" style="color:rgba(255,255,255,0.9);">알림, 계정 관리, 로그아웃, 회원탈퇴</div></div>
+            </div>
+          </div>
+          <nav class="nav"><button><span>⌂</span><span>홈</span></button><button><span>💬</span><span>채팅</span></button><button><span>📍</span><span>코노</span></button><button class="active"><span>👤</span><span>마이</span></button></nav>
+        </article>
       </section>
     </div>
   </body>
