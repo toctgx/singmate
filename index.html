@@ -60,27 +60,14 @@
       .star { width: 110px; height: 110px; background: #ff4e7a; clip-path: polygon(50% 0%, 62% 35%, 100% 50%, 62% 65%, 50% 100%, 38% 65%, 0% 50%, 38% 35%); }
       .tri { width: 0; height: 0; border-left: 42px solid transparent; border-right: 42px solid transparent; border-bottom: 72px solid #d7ff63; }
       .content { position: relative; z-index: 1; }
-      .screen-label {
-        font-size: 14px;
-        font-weight: 800;
-        letter-spacing: 0.16em;
-        color: #d7ff63;
-        margin-bottom: 14px;
-      }
       .status {
         display: flex;
         justify-content: space-between;
-        font-weight: 700;
+        font-weight: 800;
+        font-size: 18px;
         margin-bottom: 18px;
       }
-      .big-title {
-        font-size: 46px;
-        line-height: 0.92;
-        letter-spacing: -0.07em;
-        font-weight: 800;
-        margin: 10px 0 18px;
-      }
-      .subtext { color: rgba(255,255,255,0.8); font-size: 15px; line-height: 1.5; }
+      .subtext { color: rgba(255,255,255,0.92); font-size: 15px; line-height: 1.6; }
       .card {
         position: relative;
         background: rgba(83, 49, 165, 0.92);
@@ -138,22 +125,22 @@
       .mate { background: #ffffff; color: #4c2a99; min-height: 54px; }
       .battle { background: #ff4e7a; color: #fff; min-height: 54px; }
       .section-title { font-size: 30px; letter-spacing: -0.06em; margin: 18px 0 10px; }
-      .chat-header, .map-card, .mypage-card { background: rgba(255,255,255,0.08); border-radius: 26px; padding: 18px; }
+      .chat-header, .map-card, .mypage-card { background: rgba(255,255,255,0.12); border-radius: 26px; padding: 18px; }
       .bubble-wrap { display: grid; gap: 10px; margin: 18px 0; }
-      .bubble { max-width: 78%; padding: 14px 16px; border-radius: 24px; font-size: 14px; line-height: 1.45; }
-      .bubble.me { margin-left: auto; background: #d7ff63; color: #3f2392; }
-      .bubble.you { background: rgba(255,255,255,0.12); }
+      .bubble { max-width: 78%; padding: 14px 16px; border-radius: 24px; font-size: 14px; line-height: 1.52; font-weight: 500; }
+      .bubble.me { margin-left: auto; background: #d7ff63; color: #2f176f; }
+      .bubble.you { background: rgba(255,255,255,0.18); color: #fff; }
       .inputbar { display: grid; grid-template-columns: 1fr 56px; gap: 10px; margin-top: 16px; }
-      .inputbar div { background: #5e37b0; border-radius: 999px; padding: 16px 18px; color: rgba(255,255,255,0.74); }
+      .inputbar div { background: #5e37b0; border-radius: 999px; padding: 16px 18px; color: rgba(255,255,255,0.9); }
       .inputbar button { background: #ff4e7a; color: #fff; font-size: 18px; }
-      .battle-card { background: #5e37b0; border-radius: 28px; padding: 18px; margin-top: 14px; }
+      .battle-card { background: #5e37b0; border-radius: 28px; padding: 18px; margin-top: 14px; box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08); }
       .battle-options { display: grid; gap: 10px; margin-top: 12px; }
       .battle-btn { min-height: 50px; background: rgba(255,255,255,0.12); color: #fff; }
       .battle-btn.primary { background: #d7ff63; color: #4c2a99; }
       .map-box { height: 210px; border-radius: 28px; background: linear-gradient(135deg, #d7ff63 0%, #b792ff 100%); margin-bottom: 14px; position: relative; overflow: hidden; }
       .pin { position: absolute; width: 18px; height: 18px; border-radius: 50%; background: #ff4e7a; box-shadow: 0 0 0 8px rgba(255,255,255,0.22); }
       .p1 { top: 32%; left: 30%; } .p2 { top: 48%; left: 60%; } .p3 { top: 62%; left: 42%; }
-      .location-item, .mypage-item { background: rgba(255,255,255,0.08); border-radius: 22px; padding: 16px; margin-top: 12px; }
+      .location-item, .mypage-item { background: rgba(255,255,255,0.12); border-radius: 22px; padding: 16px; margin-top: 12px; }
       .location-item h3, .mypage-item h3 { margin: 0 0 6px; font-size: 20px; letter-spacing: -0.04em; }
       .list-actions { display: flex; gap: 8px; margin-top: 12px; }
       .list-btn { background: #fff; color: #4c2a99; padding: 12px 14px; }
@@ -163,10 +150,11 @@
       .coin-box { background: #d7ff63; color: #4c2a99; border-radius: 24px; padding: 16px; margin-top: 12px; }
       .coin-btn { background: #4c2a99; color: #fff; padding: 12px 14px; margin-top: 10px; }
       .nav {
-        position: absolute; left: 16px; right: 16px; bottom: 16px; background: rgba(82, 48, 163, 0.96); border-radius: 999px; padding: 12px 10px;
+        position: absolute; left: 16px; right: 16px; bottom: 16px; background: rgba(82, 48, 163, 0.98); border-radius: 999px; padding: 14px 10px;
         display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; box-shadow: 0 18px 32px rgba(19, 7, 51, 0.3);
       }
-      .nav button { border: none; background: transparent; color: rgba(255,255,255,0.72); display: grid; justify-items: center; gap: 4px; font-size: 11px; font-weight: 700; }
+      .nav button { border: none; background: transparent; color: rgba(255,255,255,0.82); display: grid; justify-items: center; gap: 6px; font-size: 12px; font-weight: 700; }
+      .nav button span:first-child { font-size: 22px; line-height: 1; }
       .nav .active { color: #d7ff63; }
       .login-card { margin-top: 200px; }
       .auth-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 14px; }
@@ -174,7 +162,7 @@
       .auth-toggle .on { background: #d7ff63; color: #4c2a99; font-weight: 800; }
       .auth-toggle .off { background: rgba(255,255,255,0.1); }
       .social { background: #fff; color: #4c2a99; font-weight: 800; margin-bottom: 10px; text-align: center; }
-      .field { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.72); margin-bottom: 10px; }
+      .field { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.92); margin-bottom: 10px; }
       .submit { background: #ff4e7a; color: #fff; text-align: center; border-radius: 999px; padding: 16px; font-weight: 800; margin-top: 8px; }
     </style>
   </head>
@@ -192,10 +180,7 @@
           <div class="shape circle" style="width:150px;height:150px; top:120px; left:-20px;"></div>
           <div class="shape tri" style="top:110px; right:92px; transform:rotate(-16deg);"></div>
           <div class="content">
-            <div class="screen-label">LOGIN / SIGNUP</div>
             <div class="status"><span>9:41</span><span>●●●</span></div>
-            <div class="big-title">sing<br/>in now</div>
-            <p class="subtext">하나의 화면에서 로그인과 회원가입을 전환합니다.</p>
             <div class="card login-card">
               <div class="auth-toggle"><div class="on">로그인</div><div class="off">회원가입</div></div>
               <div class="social">카카오로 시작하기</div>
@@ -218,16 +203,13 @@
           <div class="shape circle" style="bottom:34px; left:56px; width:138px; height:138px;"></div>
           <div class="shape squiggle" style="bottom:70px; right:-16px; transform: rotate(16deg);"></div>
           <div class="content">
-            <div class="screen-label">HOME</div>
             <div class="status"><span>9:41</span><span>●●●</span></div>
-            <div class="big-title">sing<br/>together</div>
-            <p class="subtext">Find your next karaoke partner with a 15-sec vibe check.</p>
             <section class="card" style="margin-top:158px;">
               <div class="photos"><div class="photo left"></div><div class="photo right"></div></div>
               <h1 class="title">It’s a <span>sing match!</span></h1>
               <p class="subtitle">You and 수진 liked each other. Listen, match, or battle.</p>
               <div class="panel">
-                <div class="row"><div><h2>수진, 27</h2><div class="meta">성수 · 1.2km · ENFP</div></div><div class="meta">발라드 러버</div></div>
+                <div class="row"><div><h2>수진, 27</h2><div class="meta" style="color:rgba(255,255,255,0.88);">성수 · 1.2km · ENFP</div></div><div class="meta" style="color:rgba(255,255,255,0.9);">발라드 러버</div></div>
                 <div class="chips"><span class="chip">OST</span><span class="chip">감성 발라드</span><span class="chip">듀엣 선호</span></div>
                 <div class="preview"><div><strong>15초 미리듣기</strong><span>끝까지 들으면 오늘 싱코인 +1, 최대 3개</span></div><button class="play">▶</button></div>
                 <div class="actions"><button class="pass">✕</button><button class="mate">싱메이트</button><button class="battle">싱배틀</button></div>
@@ -238,14 +220,10 @@
         </article>
 
         <article class="phone short">
-          <div class="shape circle" style="top:90px; left:-30px; width:120px; height:120px;"></div>
-          <div class="shape tri" style="top:110px; right:18px; transform:rotate(12deg);"></div>
-          <div class="shape blob" style="bottom:140px; right:-26px;"></div>
           <div class="content">
-            <div class="screen-label">CHAT + BATTLE RESULT</div>
             <div class="status"><span>9:41</span><span>●●●</span></div>
             <div class="chat-header">
-              <div class="row"><div><h3 style="font-size:28px;">민지</h3><div class="meta">싱배틀 진행 중</div></div><div class="chip">online</div></div>
+              <div class="row"><div><h3 style="font-size:28px;">민지</h3><div class="meta" style="color:rgba(255,255,255,0.88);">싱배틀 진행 중</div></div><div class="chip" style="background:#d7ff63;color:#2f176f;">online</div></div>
             </div>
             <div class="bubble-wrap">
               <div class="bubble you">오늘 저녁 성수 쪽 코노에서 배틀 가능하세요?</div>
@@ -270,20 +248,17 @@
           <div class="shape tri" style="top:100px; right:24px; transform:rotate(-12deg);"></div>
           <div class="shape circle" style="bottom:120px; right:-18px; width:130px; height:130px;"></div>
           <div class="content">
-            <div class="screen-label">NEARBY KARAOKE</div>
             <div class="status"><span>9:41</span><span>●●●</span></div>
-            <div class="big-title">sing<br/>nearby</div>
-            <p class="subtext">현재 위치 기준으로 가까운 코인노래방을 찾고 채팅으로 바로 공유합니다.</p>
             <div class="map-card">
               <div class="map-box"><div class="pin p1"></div><div class="pin p2"></div><div class="pin p3"></div></div>
               <div class="location-item">
                 <h3>수노래방 성수점</h3>
-                <div class="meta">320m · 도보 5분</div>
+                <div class="meta" style="color:rgba(255,255,255,0.9);">320m · 도보 5분</div>
                 <div class="list-actions"><button class="list-btn">상세보기</button><button class="list-btn share">채팅으로 공유</button></div>
               </div>
               <div class="location-item">
                 <h3>코인싱 성수역점</h3>
-                <div class="meta">540m · 도보 8분</div>
+                <div class="meta" style="color:rgba(255,255,255,0.9);">540m · 도보 8분</div>
                 <div class="list-actions"><button class="list-btn">상세보기</button><button class="list-btn share">채팅으로 공유</button></div>
               </div>
             </div>
@@ -296,17 +271,14 @@
           <div class="shape circle" style="top:170px; left:-16px; width:120px; height:120px;"></div>
           <div class="shape squiggle" style="bottom:120px; left:-8px; transform:rotate(-14deg);"></div>
           <div class="content">
-            <div class="screen-label">MY PAGE</div>
             <div class="status"><span>9:41</span><span>●●●</span></div>
-            <div class="big-title">my<br/>rhythm</div>
-            <p class="subtext">내 프로필, 15초 미리듣기, 싱코인, 배틀 기록을 한 곳에서 관리합니다.</p>
             <div class="mypage-card">
-              <div class="profile-top"><div class="avatar"></div><h3 style="font-size:28px; margin:0;">수진, 27</h3><div class="meta">성수 · ENFP · 발라드 / OST</div></div>
+              <div class="profile-top"><div class="avatar"></div><h3 style="font-size:28px; margin:0;">수진, 27</h3><div class="meta" style="color:rgba(255,255,255,0.9);">성수 · ENFP · 발라드 / OST</div></div>
               <div class="mypage-item"><h3>15초 미리듣기</h3><div class="preview" style="margin:10px 0 0;"><div><strong>현재 등록된 음성</strong><span>재생 · 다시 녹음 · 파일 재업로드</span></div><button class="play">▶</button></div></div>
               <div class="coin-box"><strong>싱코인 28개</strong><div style="margin-top:6px; font-size:14px;">오늘 미리듣기 보상 2/3 지급 완료</div><button class="coin-btn">충전하기 / 사용내역</button></div>
-              <div class="mypage-item"><h3>신청 / 매칭 관리</h3><div class="meta">보낸 싱메이트, 받은 싱배틀, 매칭 완료 내역</div></div>
-              <div class="mypage-item"><h3>배틀 기록</h3><div class="meta">총 21전 · 14승 · 승률 66% · 우리동네 랭킹 3위</div></div>
-              <div class="mypage-item"><h3>설정</h3><div class="meta">알림, 계정 관리, 로그아웃, 회원탈퇴</div></div>
+              <div class="mypage-item"><h3>신청 / 매칭 관리</h3><div class="meta" style="color:rgba(255,255,255,0.9);">보낸 싱메이트, 받은 싱배틀, 매칭 완료 내역</div></div>
+              <div class="mypage-item"><h3>배틀 기록</h3><div class="meta" style="color:rgba(255,255,255,0.9);">총 21전 · 14승 · 승률 66% · 우리동네 랭킹 3위</div></div>
+              <div class="mypage-item"><h3>설정</h3><div class="meta" style="color:rgba(255,255,255,0.9);">알림, 계정 관리, 로그아웃, 회원탈퇴</div></div>
             </div>
           </div>
           <nav class="nav"><button><span>⌂</span><span>홈</span></button><button><span>💬</span><span>채팅</span></button><button><span>📍</span><span>코노</span></button><button class="active"><span>👤</span><span>마이</span></button></nav>
