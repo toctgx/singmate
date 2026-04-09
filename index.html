@@ -3,164 +3,114 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sigmate Wireframe v1</title>
+    <title>Singmate Final Screen Structure v1</title>
     <style>
-      body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background:linear-gradient(180deg,#fff8fb 0%,#f7f9ff 100%); color:#111827; }
+      body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: linear-gradient(180deg,#fff8fb 0%,#f7f9ff 100%); color:#111827; }
       .wrap { max-width: 980px; margin: 0 auto; padding: 40px 20px 80px; }
-      .hero { background:linear-gradient(180deg,#ffffff 0%,#fff7fb 100%); border:1px solid #f3dce7; border-radius:24px; padding:28px; box-shadow:0 14px 30px rgba(227, 120, 162, .10); margin-bottom:20px; }
+      .hero { background:linear-gradient(180deg,#ffffff 0%,#fff7fb 100%); border:1px solid #f3dce7; border-radius:24px; padding:28px; box-shadow:0 14px 30px rgba(227,120,162,.10); margin-bottom:20px; }
       h1 { margin:0 0 10px; font-size:40px; }
       h2 { margin:32px 0 12px; font-size:28px; }
-      h3 { margin:24px 0 10px; font-size:20px; }
+      h3 { margin:18px 0 8px; font-size:20px; }
       p, li { line-height:1.7; color:#374151; }
-      .card { background:#ffffff; border:1px solid #f2e6ee; border-radius:24px; padding:24px; margin-bottom:18px; box-shadow:0 12px 24px rgba(227, 120, 162, .08); }
-      pre { background:#0f172a; color:#e5e7eb; padding:18px; border-radius:18px; overflow:auto; font-size:14px; line-height:1.55; }
+      .card { background:#ffffff; border:1px solid #f2e6ee; border-radius:24px; padding:24px; margin-bottom:18px; box-shadow:0 12px 24px rgba(227,120,162,.08); }
       .tag { display:inline-block; background:#ffe8f1; color:#b83280; padding:8px 12px; border-radius:999px; font-weight:700; margin:4px 8px 0 0; font-size:14px; }
+      pre { background:#0f172a; color:#e5e7eb; padding:18px; border-radius:18px; overflow:auto; font-size:14px; line-height:1.55; }
       ul { padding-left: 20px; }
     </style>
   </head>
   <body>
     <div class="wrap">
       <section class="hero">
-        <h1>Sigmate Wireframe v1</h1>
-        <p>Dateasy류의 카드형 매칭 UX를 참고해, 코인노래방 함께 갈 친구를 위치 기반으로 찾고 15초 미리듣기 음성 프로필로 매칭되는 앱의 1차 와이어프레임입니다.</p>
+        <h1>Singmate Final Screen Structure v1</h1>
+        <p>코인노래방 함께 갈 친구를 찾는 위치 기반 앱의 최종 화면 구조 확정본입니다.</p>
         <div>
+          <span class="tag">홈</span>
+          <span class="tag">채팅</span>
+          <span class="tag">주변 코인노래방</span>
+          <span class="tag">마이페이지</span>
           <span class="tag">15초 미리듣기</span>
           <span class="tag">싱메이트</span>
           <span class="tag">싱배틀</span>
-          <span class="tag">위치 기반</span>
-          <span class="tag">채팅</span>
         </div>
       </section>
 
       <section class="card">
-        <h2>0. 로그인 / 시작 화면</h2>
-        <pre>┌──────────────────────────────┐
-│          Sigmate             │
-│   코인노래방 함께 갈 친구 찾기  │
-│                              │
-│    [ 카카오로 시작하기 ]       │
-│    [ 애플로 시작하기 ]         │
-│    [ ID / PW 로그인 ]         │
-│                              │
-│   처음이신가요? [회원가입]      │
-└──────────────────────────────┘</pre>
+        <h2>하단 네비게이션</h2>
+        <ul>
+          <li>홈</li>
+          <li>채팅</li>
+          <li>주변 코인노래방</li>
+          <li>마이페이지</li>
+        </ul>
       </section>
 
       <section class="card">
-        <h2>회원가입 플로우</h2>
-        <h3>1단계 - 기본 정보</h3>
-        <pre>┌──────────────────────────────┐
-│         회원가입              │
-│                              │
-│  휴대폰 번호 [            ]   │
-│  인증번호   [            ]   │
-│  비밀번호   [            ]   │
-│  닉네임     [            ]   │
-│                              │
-│         [ 다음 ]             │
-└──────────────────────────────┘</pre>
-        <h3>2단계 - 프로필 정보</h3>
-        <pre>┌──────────────────────────────┐
-│        프로필 설정            │
-│                              │
-│  프로필 사진 업로드           │
-│  성별       [ 선택 ]          │
-│  나이       [ 선택 ]          │
-│  지역       [ 선택 ]          │
-│  MBTI      [ 선택 ]          │
-│  좋아하는 장르 [ 선택 ]       │
-│                              │
-│         [ 다음 ]             │
-└──────────────────────────────┘</pre>
-        <h3>3단계 - 15초 미리듣기 등록</h3>
-        <pre>┌──────────────────────────────┐
-│     15초 미리듣기 등록         │
-│                              │
-│  [ 직접 녹음하기 ]            │
-│  [ 파일 업로드 ]              │
-│                              │
-│  안내: 15초 초과 시            │
-│  앞 15초만 자동 등록됩니다      │
-│                              │
-│      업로드된 샘플 미리재생     │
-│        [ ▶ 재생 ]             │
-│                              │
-│         [ 완료 ]              │
-└──────────────────────────────┘</pre>
+        <h2>0. 로그인 / 회원가입</h2>
+        <ul>
+          <li>한 화면 안에서 로그인 / 회원가입 전환</li>
+          <li>소셜 로그인 + ID/PW 로그인</li>
+          <li>휴대폰 번호, 인증번호, 비밀번호, 닉네임</li>
+          <li>성별, 나이, 지역, 프로필 사진, MBTI, 좋아하는 노래 장르</li>
+          <li>15초 미리듣기 등록 포함</li>
+        </ul>
       </section>
 
       <section class="card">
-        <h2>1. 홈 화면 (메인 매칭 카드)</h2>
-        <p>데이트 앱의 카드형 매칭 UX를 참고하되, 프로필 카드 안에서 바로 <strong>15초 미리듣기</strong>, <strong>싱메이트</strong>, <strong>싱배틀</strong>이 보이도록 재구성합니다.</p>
-        <pre>┌──────────────────────────────┐
-│ Sigmate         [알림] [채팅] │
-│                              │
-│   ┌──────────────────────┐   │
-│   │      프로필 사진      │   │
-│   │                      │   │
-│   │  민지, 27 / 성수      │   │
-│   │  ENFP                │   │
-│   │  좋아하는 장르: 발라드 │   │
-│   │                      │   │
-│   │   [▶ 15초 미리듣기]   │   │
-│   │                      │   │
-│   │ [싱메이트] [싱배틀]   │   │
-│   └──────────────────────┘   │
-│                              │
-│   ← 좌 / 우 스와이프 →        │
-│                              │
-│ [홈] [주변 코노] [채팅] [마이] │
-└──────────────────────────────┘</pre>
+        <h2>1. 홈 화면</h2>
+        <p>Singmate의 핵심 메인 화면입니다. 스와이프 카드 구조 안에 15초 미리듣기와 싱메이트/싱배틀 신청이 바로 들어갑니다.</p>
+        <pre>프로필 사진
+이름 / 나이 / 지역
+MBTI / 좋아하는 장르
+[▶ 15초 미리듣기]
+[싱메이트] [싱배틀]</pre>
+        <h3>추가 기능</h3>
+        <ul>
+          <li>다른 사람 프로필의 15초 미리듣기를 끝까지 들으면 싱코인 1개 지급</li>
+          <li>하루 최대 3개까지만 지급</li>
+          <li>3개 이후에도 미리듣기는 계속 가능</li>
+        </ul>
       </section>
 
       <section class="card">
-        <h2>2. 채팅 화면</h2>
-        <pre>┌──────────────────────────────┐
-│ ← 민지                    ⋮   │
-├──────────────────────────────┤
-│ 안녕하세요!                 │
-│ 오늘 저녁 코노 가능하세요?   │
-│                              │
-│ 8시쯤 괜찮아요               │
-│ 어느 쪽 원하세요?            │
-│                              │
-├──────────────────────────────┤
-│ [메시지 입력...]     [전송]   │
-└──────────────────────────────┘</pre>
+        <h2>2. 채팅</h2>
+        <ul>
+          <li>매칭 후 대화</li>
+          <li>시간 조율</li>
+          <li>코인노래방 장소 조율</li>
+          <li>카카오톡처럼 익숙한 채팅 UI</li>
+        </ul>
+        <h3>싱배틀 결과 입력</h3>
+        <ul>
+          <li>내가 이겼어요</li>
+          <li>상대가 이겼어요</li>
+          <li>무승부</li>
+        </ul>
       </section>
 
       <section class="card">
-        <h2>3. 주변 코인노래방 찾기</h2>
-        <pre>┌──────────────────────────────┐
-│      주변 코인노래방          │
-│                              │
-│   [ 지도 영역 ]               │
-│                              │
-│ ---------------------------- │
-│ 1. 수노래방 성수점   320m     │
-│ 2. 코인싱 성수역점   540m     │
-│ 3. 락휴 코노 건대점   810m    │
-│                              │
-│ [홈] [주변 코노] [채팅] [마이] │
-└──────────────────────────────┘</pre>
+        <h2>3. 주변 코인노래방</h2>
+        <ul>
+          <li>현재 위치 기반 리스트/지도</li>
+          <li>매장명 / 거리 / 이동 시간 / 상세보기</li>
+          <li>특정 코인노래방을 채팅창에 바로 공유 가능</li>
+        </ul>
       </section>
 
       <section class="card">
         <h2>4. 마이페이지</h2>
-        <pre>┌──────────────────────────────┐
-│          마이페이지           │
-│                              │
-│  프로필 사진 / 닉네임         │
-│  지역 / MBTI / 장르          │
-│                              │
-│  [내 프로필 수정]             │
-│  [15초 미리듣기 다시 등록]    │
-│  [싱코인 구매]               │
-│  [신청/매칭 내역]            │
-│  [설정]                      │
-│                              │
-│ [홈] [주변 코노] [채팅] [마이] │
-└──────────────────────────────┘</pre>
+        <ul>
+          <li>내 프로필 관리</li>
+          <li>15초 미리듣기 관리</li>
+          <li>신청/매칭 관리</li>
+          <li>싱코인 관리</li>
+          <li>배틀 기록 확인</li>
+          <li>설정</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>메인 플로우</h2>
+        <p>로그인/회원가입 → 프로필 생성 → 15초 미리듣기 등록 → 홈 스와이프 카드 → 싱메이트/싱배틀 신청 → 채팅 → 주변 코인노래방 공유/조율 → 마이페이지에서 기록/코인 관리</p>
       </section>
     </div>
   </body>
