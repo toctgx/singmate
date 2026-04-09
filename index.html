@@ -48,11 +48,6 @@
       .home-card { min-height: 650px; background: linear-gradient(180deg, rgba(34,18,76,.04) 0%, rgba(34,18,76,.08) 100%), url('https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1200&q=80') center/cover; border-radius: 34px; overflow: hidden; padding: 18px; position: relative; box-shadow: 0 24px 40px rgba(0,0,0,.22); margin-top: 78px; }
       .home-card::after { content:''; position:absolute; inset:0; background: linear-gradient(180deg, rgba(35,18,79,.02) 0%, rgba(35,18,79,.14) 35%, rgba(35,18,79,.85) 100%); }
       .home-overlay { position: relative; z-index: 1; height: 100%; display:flex; flex-direction:column; }
-      .top-meter { display:flex; justify-content:space-between; gap:12px; align-items:center; }
-      .meter-lines { display:grid; grid-template-columns:1fr 1fr; gap:10px; flex:1; }
-      .meter-lines span { display:block; height:6px; border-radius:999px; background: rgba(215,255,99,.35); }
-      .meter-lines span:first-child { background:#d7ff63; }
-      .rate-badge { background:#d7ff63; color:#432081; border-radius:999px; min-height:44px; padding:0 16px; display:inline-flex; align-items:center; font-weight:800; }
       .home-spacer { flex:1; }
       .home-info h2 { margin:0 0 10px; font-size:34px; letter-spacing:-.06em; }
       .distance { color: rgba(255,255,255,.88); }
@@ -63,6 +58,10 @@
       .round-btn.pass { background:#4a2695; color:#fff; }
       .round-btn.like { background:#ff4e7a; color:#fff; }
       .round-btn.play-main { width:96px; height:96px; justify-self:center; background:#d7ff63; color:#432081; box-shadow:0 0 0 8px rgba(215,255,99,.18); }
+      .home-apply { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:14px; }
+      .apply-btn { min-height:54px; border:none; border-radius:999px; font-weight:800; font-size:15px; }
+      .apply-btn.mate { background:#ffffff; color:#432081; }
+      .apply-btn.battle { background:#ff4e7a; color:#fff; }
       .home-caption { margin-top:12px; color: rgba(255,255,255,.88); font-size: 13px; text-align:center; }
       .home-head { display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
       .top-title { font-size: 28px; letter-spacing: -.06em; margin: 0; }
@@ -194,7 +193,6 @@
               <div class="home-head"><div><h2 class="top-title">홈</h2><p class="top-sub">오늘의 추천 프로필을 넘겨보세요</p></div><div class="coin-pill" id="coin-pill">싱코인 0</div></div>
               <div class="home-card">
                 <div class="home-overlay">
-                  <div class="top-meter"><div class="meter-lines"><span></span><span></span></div><div class="rate-badge" id="match-rate">94%</div></div>
                   <div class="home-spacer"></div>
                   <div class="home-info">
                     <h2 id="profile-name">수진, 27</h2>
@@ -204,6 +202,10 @@
                       <button class="round-btn pass" id="pass-btn">✕</button>
                       <button class="round-btn play-main" id="play-btn">▶</button>
                       <button class="round-btn like" id="like-btn">♡</button>
+                    </div>
+                    <div class="home-apply">
+                      <button class="apply-btn mate" id="mate-btn">싱메이트 신청</button>
+                      <button class="apply-btn battle" id="battle-btn">싱배틀 신청</button>
                     </div>
                     <div class="home-caption" id="home-caption">미리듣기 완료 시 하루 최대 3회까지 싱코인 1개 지급</div>
                   </div>
@@ -332,13 +334,14 @@
         const p = state.profiles[state.currentProfile % state.profiles.length];
         document.getElementById('profile-name').textContent = `${p.name}, ${p.age}`;
         document.getElementById('profile-distance').textContent = `📍 ${p.distance}`;
-        document.getElementById('match-rate').textContent = p.rate;
         document.getElementById('profile-tags').innerHTML = p.tags.map(t => `<span>${t}</span>`).join('');
         document.getElementById('coin-pill').textContent = `싱코인 ${state.coins}`;
       };
       const nextProfile = () => { state.currentProfile = (state.currentProfile + 1) % state.profiles.length; renderHome(); };
       document.getElementById('pass-btn').onclick = () => { nextProfile(); showToast('다음 프로필로 이동'); };
-      document.getElementById('like-btn').onclick = () => { nextProfile(); showToast('싱메이트 신청 완료'); };
+      document.getElementById('like-btn').onclick = () => { nextProfile(); showToast('좋아요 처리 완료'); };
+      document.getElementById('mate-btn').onclick = () => showToast('싱메이트 신청 완료');
+      document.getElementById('battle-btn').onclick = () => showToast('싱배틀 신청 완료');
       document.getElementById('play-btn').onclick = () => {
         if (state.listenRewardsToday < 3) { state.listenRewardsToday += 1; state.coins += 1; showToast(`15초 미리듣기 완료, 싱코인 +1 (${state.listenRewardsToday}/3)`); }
         else showToast('오늘 지급 가능한 싱코인은 모두 받았습니다.');
